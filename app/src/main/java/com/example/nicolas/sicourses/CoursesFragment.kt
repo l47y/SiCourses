@@ -1,10 +1,12 @@
 package com.example.nicolas.sicourses
 
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.MenuItemCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.*
@@ -14,8 +16,7 @@ import kotlinx.android.synthetic.main.fragment_courses.*
 import kotlinx.android.synthetic.main.fragment_courses.view.*
 import java.nio.file.Files.delete
 import android.support.v7.widget.RecyclerView
-
-
+import com.google.gson.Gson
 
 
 class CoursesFragment : Fragment() {
@@ -62,11 +63,24 @@ class CoursesFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                courses.removeAt(viewHolder.adapterPosition)
-                myAdapter = Courses_Adapter(courses)
-                MainActivity().courses = courses
-                recyclView.adapter = myAdapter
+                val position = viewHolder.adapterPosition
+                val nameToDelete = courses.get(position).nombre
+                val builder = AlertDialog.Builder(context!!)
+                val string = "Estás seguro que quieres bollar el curso $nameToDelete ?"
+                builder.setTitle("Confirmación necesaria")
 
+                builder.setMessage(string)
+                builder.setPositiveButton("Si") { dialog, which ->
+                    courses.removeAt(position)
+                    saveData()
+                    myAdapter = Courses_Adapter(courses)
+                    recyclView.adapter = myAdapter
+                }
+                builder.setNegativeButton("No") { dialog, which ->
+                    recyclView.adapter = myAdapter
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
             }
         }).attachToRecyclerView(recyclView)
 
@@ -92,5 +106,13 @@ class CoursesFragment : Fragment() {
         })
     }
 
+    private fun saveData() {
+        val sharedPrefsObj = this.activity?.getSharedPreferences("data", Context.MODE_PRIVATE)
+        val editor = sharedPrefsObj?.edit()
+        val gson = Gson()
+        val json = gson.toJson(courses)
+        editor?.putString("savedCourses", json)
+        editor?.apply()
+    }
 
 }

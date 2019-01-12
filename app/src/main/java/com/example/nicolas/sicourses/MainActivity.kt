@@ -17,20 +17,23 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_statistics.*
 
 
-
 class MainActivity : AppCompatActivity() {
+
 
     // global variables
     public var courses = mutableListOf<CourseDataClass>() // List of courses
     public var I_COME_FROM = "nowhere" // Indicator from where the activity is started
 
+
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item->
         when(item.itemId) {
             R.id.nav_home -> {
+                loadData()
                 replaceFragment(HomeFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_courses -> {
+                loadData()
                 val frag = CoursesFragment()
                 val bundle = Bundle()
 
@@ -45,6 +48,14 @@ class MainActivity : AppCompatActivity() {
                     val newCourse = CourseDataClass(nombre, lugar, empresa, evalVec, media)
                     courses.add(newCourse)
                     saveData()
+                } else if (I_COME_FROM == "DeleteCourse") {
+//                    val intent = getIntent()
+//                    courses = ArrayList<CourseDataClass>()
+//                    val coursesFromIntent = intent.getParcelableArrayExtra("courses")
+//                    for (course in coursesFromIntent) {
+//                        courses.add(course)
+//                    }
+
                 }
                 val coursesForSending = ArrayList<CourseDataClass>(courses)
                 bundle.putParcelableArrayList("courses", coursesForSending)
@@ -53,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_statistics -> {
+                loadData()
                 val frag = StatisticsFragment()
                 val bundle = Bundle()
                 val coursesForSending = ArrayList<CourseDataClass>(courses)
@@ -76,7 +88,7 @@ class MainActivity : AppCompatActivity() {
             clearAll()
         }
 
-        loadData()
+        //loadData()
 
         bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
@@ -88,7 +100,13 @@ class MainActivity : AppCompatActivity() {
             I_COME_FROM = "AddCourse"
             bottom_nav.setSelectedItemId(R.id.nav_courses)
             I_COME_FROM = "nowhere"
-        } else {
+        } else if(WHERE_DO_I_COME_FROM == "DeleteFrom") {
+            I_COME_FROM == "DeleteCourse"
+            bottom_nav.setSelectedItemId(R.id.nav_courses)
+            I_COME_FROM == "nowhere"
+        }
+
+        else {
             replaceFragment(HomeFragment())
         }
     }
