@@ -6,17 +6,24 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.*
 import android.widget.SearchView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_courses.*
 import kotlinx.android.synthetic.main.fragment_courses.view.*
+import java.nio.file.Files.delete
+import android.support.v7.widget.RecyclerView
+
+
 
 
 class CoursesFragment : Fragment() {
 
     lateinit var myAdapter: Courses_Adapter
     lateinit var searchView: android.support.v7.widget.SearchView
+
+    var courses = ArrayList<CourseDataClass>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +39,7 @@ class CoursesFragment : Fragment() {
 
         val bundle = getArguments()
         if (bundle != null) {
-            val courses = bundle.getParcelableArrayList<CourseDataClass>("courses")
+            courses = bundle.getParcelableArrayList<CourseDataClass>("courses")
             myAdapter = Courses_Adapter(courses)
             recyclView.adapter = myAdapter
         }
@@ -41,6 +48,27 @@ class CoursesFragment : Fragment() {
             val intent = Intent(context, AddCourseDatos::class.java)
             startActivity(intent)
         }
+
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                courses.removeAt(viewHolder.adapterPosition)
+                myAdapter = Courses_Adapter(courses)
+                MainActivity().courses = courses
+                recyclView.adapter = myAdapter
+
+            }
+        }).attachToRecyclerView(recyclView)
 
         return Inflater
     }

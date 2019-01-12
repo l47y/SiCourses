@@ -21,6 +21,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+
 }
 
 dependencies {
@@ -41,8 +46,13 @@ dependencies {
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation 'com.sdsmdg.harjot:croller:1.0.7'
     implementation "com.google.code.gson:gson:2.8.2"
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
 }
 
 androidExtensions {
     experimental = true
+}
+
+repositories {
+    maven { url 'https://jitpack.io' }
 }

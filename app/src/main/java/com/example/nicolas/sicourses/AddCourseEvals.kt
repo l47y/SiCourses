@@ -32,36 +32,36 @@ class AddCourseEvals : AppCompatActivity() {
 //        val cinco = croller_cinco.progress.toString().toInt()
 
         // Croller Label updates
-        croller_diez.setOnProgressChangedListener({
+        croller_diez.setOnProgressChangedListener {
             diez = croller_diez.progress
             val prog = croller_diez.progress.toString()
             croller_diez.label = "10s: $prog"
-        })
-        croller_nueve.setOnProgressChangedListener({
+        }
+        croller_nueve.setOnProgressChangedListener {
             nueve = croller_nueve.progress
             val prog = croller_nueve.progress.toString()
             croller_nueve.label = "9s: $prog"
-        })
-        croller_ocho.setOnProgressChangedListener({
+        }
+        croller_ocho.setOnProgressChangedListener {
             ocho = croller_ocho.progress
             val prog = croller_ocho.progress.toString()
             croller_ocho.label = "8s: $prog"
-        })
-        croller_siete.setOnProgressChangedListener({
+        }
+        croller_siete.setOnProgressChangedListener {
             siete = croller_siete.progress
             val prog = croller_siete.progress.toString()
             croller_siete.label = "7s: $prog"
-        })
-        croller_seis.setOnProgressChangedListener({
+        }
+        croller_seis.setOnProgressChangedListener {
             seis = croller_seis.progress
             val prog = croller_seis.progress.toString()
             croller_seis.label = "6s: $prog"
-        })
-        croller_cinco.setOnProgressChangedListener({
+        }
+        croller_cinco.setOnProgressChangedListener {
             cinco = croller_cinco.progress
             val prog = croller_cinco.progress.toString()
             croller_cinco.label = "5s: $prog"
-        })
+        }
 
         btn_listo_add_course_evals.setOnClickListener {
             val evalVec = arrayListOf(diez, nueve, ocho, siete, seis, cinco)

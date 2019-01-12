@@ -17,11 +17,12 @@ import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_statistics.*
 
 
-// global variables
-public var courses = mutableListOf<CourseDataClass>() // List of courses
-public var I_COME_FROM = "nowhere" // Indicator from where the activity is started
 
 class MainActivity : AppCompatActivity() {
+
+    // global variables
+    public var courses = mutableListOf<CourseDataClass>() // List of courses
+    public var I_COME_FROM = "nowhere" // Indicator from where the activity is started
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item->
         when(item.itemId) {
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.nav_courses -> {
                 val frag = CoursesFragment()
+                val bundle = Bundle()
 
                 // If coming from AddCourseDatos, than add the new course to courses and send the bundle to the CoursesFragment
                 if (I_COME_FROM == "AddCourse") {
@@ -44,7 +46,6 @@ class MainActivity : AppCompatActivity() {
                     courses.add(newCourse)
                     saveData()
                 }
-                val bundle = Bundle()
                 val coursesForSending = ArrayList<CourseDataClass>(courses)
                 bundle.putParcelableArrayList("courses", coursesForSending)
                 frag.setArguments(bundle)
@@ -52,7 +53,12 @@ class MainActivity : AppCompatActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_statistics -> {
-                replaceFragment(StatisticsFragment())
+                val frag = StatisticsFragment()
+                val bundle = Bundle()
+                val coursesForSending = ArrayList<CourseDataClass>(courses)
+                bundle.putParcelableArrayList("courses", coursesForSending)
+                frag.setArguments(bundle)
+                replaceFragment(frag)
                 return@OnNavigationItemSelectedListener true
             }
             else -> {

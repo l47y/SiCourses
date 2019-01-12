@@ -27,8 +27,8 @@
             android:text="Clear_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" android:id="@+id/button_clearall"
-            android:layout_marginTop="176dp"
+            android:layout_marginTop="400dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="148dp"/>
+            android:layout_marginStart="16dp"/>
 
 </android.support.constraint.ConstraintLayout>
