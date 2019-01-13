@@ -23,6 +23,8 @@ class AddCourseEvals : AppCompatActivity() {
         val nombre = intent.getStringExtra("nombre")
         val lugar = intent.getStringExtra("lugar")
         val empresa = intent.getStringExtra("empresa")
+        val de = intent.getStringExtra("de")
+        val hasta = intent.getStringExtra("hasta")
 
 //        val diez: Int = croller_diez.progress.toString().toInt()
 //        val nueve: Int = croller_nueve.progress.toString().toInt()
@@ -73,6 +75,9 @@ class AddCourseEvals : AppCompatActivity() {
             intent.putExtra("empresa", empresa)
             intent.putExtra("evals", evalVecParcable)
             intent.putExtra("media", media)
+            intent.putExtra("de", de)
+            intent.putExtra("hasta", hasta)
+
             intent.putExtra("I_COME_FROM", "AddCourse")
             startActivity(intent)
         }

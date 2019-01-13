@@ -31,6 +31,7 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>): RecyclerView.Adapter
         val lugarView = v.findViewById<TextView>(R.id.recyclerlayout_lugar)
         val empresaView = v.findViewById<TextView>(R.id.recyclerlayout_empresa)
         val mediaView = v.findViewById<TextView>(R.id.recyclerlayout_media)
+        val fechaView = v.findViewById<TextView>(R.id.recyclerlayout_fecha)
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CustomViewHolder {
@@ -44,10 +45,13 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>): RecyclerView.Adapter
         val empresa = Course.empresa
         val lugar = Course.lugar
         val meanCourse = roundOnDecimal(Course.media)
+        val de = Course.de
+        val hasta = Course.hasta
         p0.nombreView.text = Course.nombre
         p0.empresaView.text = "Empresa: $empresa"
         p0.lugarView.text = "Lugar: $lugar"
         p0.mediaView.text = "$meanCourse"
+        p0.fechaView.text = "$de - $hasta"
     }
 
     override fun getItemViewType(position: Int): Int {

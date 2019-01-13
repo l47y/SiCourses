@@ -12,10 +12,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_course_lugarlabel"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/add_course_nombreinput"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
     <Button
             android:text="Siguiente"
             android:layout_width="wrap_content"
@@ -26,14 +26,15 @@
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
     <AutoCompleteTextView
-            android:layout_width="283dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/add_course_lugarinput"
+            android:gravity="center_horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/add_course_lugarlabel"
-            android:completionThreshold="1"/>
+            android:completionThreshold="1" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="40dp"/>
     <TextView
             android:text="Nombre"
             android:layout_width="wrap_content"
@@ -42,33 +43,65 @@
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
     <TextView
             android:text="Empresa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/add_course_empresalabel"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             app:layout_constraintTop_toBottomOf="@+id/add_course_lugarinput"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
     <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
+            android:gravity="center_horizontal"
             android:ems="10"
             android:id="@+id/add_course_empresainput"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/add_course_empresalabel"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="40dp" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="40dp"/>
     <AutoCompleteTextView
-            android:layout_width="282dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/add_course_nombreinput"
+            android:gravity="center_horizontal"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/add_course_nombrelabel"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="8dp"
-            android:completionThreshold="1"/>
+            android:layout_marginStart="40dp"
+            android:completionThreshold="1" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="40dp"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:focusable="false"
+            android:id="@+id/add_course_deinput" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="24dp" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/add_course_fechalabel" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/add_course_hastainput" android:hint="de"
+            app:layout_constraintHorizontal_chainStyle="spread_inside" android:gravity="center_horizontal"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:focusable="false"
+            android:id="@+id/add_course_hastainput" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/add_course_fechalabel" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="24dp" android:hint="hasta"
+            app:layout_constraintStart_toEndOf="@+id/add_course_deinput" android:layout_marginStart="8dp"
+            android:gravity="center_horizontal"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/add_course_fechalabel" android:text="Fecha"
+            android:layout_marginTop="24dp" app:layout_constraintTop_toBottomOf="@+id/add_course_empresainput"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
 </android.support.constraint.ConstraintLayout>

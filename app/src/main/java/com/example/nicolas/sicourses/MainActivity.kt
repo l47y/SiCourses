@@ -44,8 +44,11 @@ class MainActivity : AppCompatActivity() {
                     val lugar = intent.getStringExtra("lugar")
                     val empresa = intent.getStringExtra("empresa")
                     val evalVec = intent.getStringExtra("evals")
+                    val de = intent.getStringExtra("de")
+                    val hasta = intent.getStringExtra("hasta")
+
                     val media = intent.getDoubleExtra("media", 0.toDouble())
-                    val newCourse = CourseDataClass(nombre, lugar, empresa, evalVec, media)
+                    val newCourse = CourseDataClass(nombre, lugar, empresa, evalVec, de, hasta, media)
                     courses.add(newCourse)
                     saveData()
                 } else if (I_COME_FROM == "DeleteCourse") {
