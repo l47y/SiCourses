@@ -23,6 +23,7 @@ class CoursesFragment : Fragment() {
 
     lateinit var myAdapter: Courses_Adapter
     lateinit var searchView: android.support.v7.widget.SearchView
+    lateinit var recyclView: RecyclerView
 
     var courses = ArrayList<CourseDataClass>()
 
@@ -35,7 +36,7 @@ class CoursesFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        val recyclView = Inflater.recyclerView_Courses
+        recyclView = Inflater.recyclerView_Courses
         recyclView.layoutManager = LinearLayoutManager(context)
 
         val bundle = getArguments()
@@ -106,6 +107,27 @@ class CoursesFragment : Fragment() {
         })
     }
 
+    // Sort List
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.sortPorNombre -> {
+                courses = ArrayList(courses.sortedWith(compareBy({ it.nombre})))
+                myAdapter = Courses_Adapter(courses)
+                recyclView.adapter = myAdapter
+                true
+            }
+            R.id.sortPorLugar -> {
+                courses = ArrayList(courses.sortedWith(compareBy({ it.lugar})))
+                myAdapter = Courses_Adapter(courses)
+                recyclView.adapter = myAdapter
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
     private fun saveData() {
         val sharedPrefsObj = this.activity?.getSharedPreferences("data", Context.MODE_PRIVATE)
         val editor = sharedPrefsObj?.edit()
@@ -114,5 +136,7 @@ class CoursesFragment : Fragment() {
         editor?.putString("savedCourses", json)
         editor?.apply()
     }
+
+
 
 }

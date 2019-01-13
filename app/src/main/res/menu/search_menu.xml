@@ -9,7 +9,21 @@
           app:actionViewClass="android.support.v7.widget.SearchView"
 
           />
+    <item android:id="@+id/sortSearch"
+          android:icon="@drawable/ic_sort_black_24dp"
+          android:title="Sort"
+          app:showAsAction="always">
 
+       <menu>
 
+           <item android:id="@+id/sortPorNombre"
+                 android:title="Ordenar por Nombre"/>
+
+           <item android:id="@+id/sortPorLugar"
+                 android:title="Ordenar por Lugar"/>
+
+       </menu>
+
+    </item>
 
 </menu>

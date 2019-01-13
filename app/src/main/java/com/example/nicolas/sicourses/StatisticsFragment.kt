@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.Toast
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
@@ -21,7 +22,7 @@ class StatisticsFragment : Fragment() {
     var howManyofEachEval = ArrayList<Int>()
     var pieDataEntrys = ArrayList<PieEntry>()
 
-    lateinit var gesture: GestureDetector
+    var PLOT_COUNTER: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,9 +77,20 @@ class StatisticsFragment : Fragment() {
         return Inflater
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        inflater?.inflate(R.menu.chartnav_menu, menu)
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
+        inflater.inflate(R.menu.chartnav_menu, menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.charnav_back -> {
+                Toast.makeText(context, "back clicked", Toast.LENGTH_SHORT).show()
+            }
+            R.id.charnav_foward -> {
+                Toast.makeText(context, "foward clicked", Toast.LENGTH_SHORT).show()
+            }
+        }
+        return true
     }
 
 }
