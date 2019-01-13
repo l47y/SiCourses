@@ -67,7 +67,7 @@ class CoursesFragment : Fragment() {
                 val position = viewHolder.adapterPosition
                 val nameToDelete = courses.get(position).nombre
                 val builder = AlertDialog.Builder(context!!)
-                val string = "Estás seguro que quieres bollar el curso $nameToDelete ?"
+                val string = "Estás seguro que quieres borrar el curso $nameToDelete ?"
                 builder.setTitle("Confirmación necesaria")
 
                 builder.setMessage(string)
@@ -115,13 +115,25 @@ class CoursesFragment : Fragment() {
                 courses = ArrayList(courses.sortedWith(compareBy({ it.nombre})))
                 myAdapter = Courses_Adapter(courses)
                 recyclView.adapter = myAdapter
-                true
+                return true
             }
             R.id.sortPorLugar -> {
                 courses = ArrayList(courses.sortedWith(compareBy({ it.lugar})))
                 myAdapter = Courses_Adapter(courses)
                 recyclView.adapter = myAdapter
-                true
+                return true
+            }
+            R.id.sortPorEmpresa -> {
+                courses = ArrayList(courses.sortedWith(compareBy({ it.empresa})))
+                myAdapter = Courses_Adapter(courses)
+                recyclView.adapter = myAdapter
+                return true
+            }
+            R.id.sortPorMedia -> {
+                courses = ArrayList(courses.sortedWith(compareBy({ it.media})))
+                myAdapter = Courses_Adapter(courses)
+                recyclView.adapter = myAdapter
+                return true
             }
             else -> super.onOptionsItemSelected(item)
         }

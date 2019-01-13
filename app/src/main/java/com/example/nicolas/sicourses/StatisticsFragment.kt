@@ -17,12 +17,10 @@ import kotlinx.android.synthetic.main.fragment_statistics.view.*
 
 class StatisticsFragment : Fragment() {
 
-    var allEvals = ArrayList<Int>()
-    var evalNum = ArrayList<String>()
-    var howManyofEachEval = ArrayList<Int>()
-    var pieDataEntrys = ArrayList<PieEntry>()
 
-    var PLOT_COUNTER: Int = 0
+    lateinit var container_layout: LinearLayout
+    lateinit var mybundle: Bundle
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,23 +29,35 @@ class StatisticsFragment : Fragment() {
         // Inflate the layout for this fragment
         val Inflater = inflater.inflate(R.layout.fragment_statistics, container, false)
 
-
         setHasOptionsMenu(true)
 
+        container_layout = Inflater.findViewById<View>(R.id.chart_container) as LinearLayout
+        val args = arguments
+        if (args != null) {
+            mybundle = args
+        }
 
-        //val chart = Inflater.piechart
+        makePieChart()
 
-        val chart = PieChart(context)
-        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                                                                     LinearLayout.LayoutParams.MATCH_PARENT)
-        chart.setPadding(16, 16, 16, 16)
-        chart.layoutParams = params
-        val container_layout = Inflater.findViewById<View>(R.id.chart_container) as LinearLayout
-        container_layout.addView(chart)
+        return Inflater
+    }
 
-        val bundle = getArguments()
-        if (bundle != null) {
-            val courses = bundle.getParcelableArrayList<CourseDataClass>("courses")
+    private fun makePieChart() {
+
+        if (mybundle != null) {
+
+            var allEvals = ArrayList<Int>()
+            var evalNum = ArrayList<String>()
+            var howManyofEachEval = ArrayList<Int>()
+            var pieDataEntrys = ArrayList<PieEntry>()
+
+            val chart = PieChart(context)
+            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT)
+            chart.setPadding(16, 16, 16, 16)
+            chart.layoutParams = params
+
+            val courses = mybundle.getParcelableArrayList<CourseDataClass>("courses")
 
             for (course in courses) {
                 val evals = course.evals.split(",").dropLast(1).map { it.toInt() }
@@ -71,10 +81,8 @@ class StatisticsFragment : Fragment() {
             chart.animateY(1200)
             chart.invalidate()
 
-
+            container_layout.addView(chart)
         }
-
-        return Inflater
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -92,5 +100,7 @@ class StatisticsFragment : Fragment() {
         }
         return true
     }
+
+
 
 }

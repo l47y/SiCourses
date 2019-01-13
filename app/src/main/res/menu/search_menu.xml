@@ -22,6 +22,15 @@
            <item android:id="@+id/sortPorLugar"
                  android:title="Ordenar por Lugar"/>
 
+           <item android:id="@+id/sortPorEmpresa"
+                 android:title="Ordenar por Empresa"/>
+
+           <item android:id="@+id/sortPorFecha"
+                 android:title="Ordenar por Fecha"/>
+
+           <item android:id="@+id/sortPorMedia"
+                 android:title="Ordenar por Media"/>
+
        </menu>
 
     </item>
