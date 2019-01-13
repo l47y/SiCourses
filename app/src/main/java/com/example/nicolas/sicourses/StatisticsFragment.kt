@@ -2,10 +2,13 @@ package com.example.nicolas.sicourses
 
 
 import android.os.Bundle
+import android.support.design.chip.ChipGroup
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.RecyclerView
+import android.view.*
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
 import kotlinx.android.synthetic.main.fragment_statistics.view.*
@@ -18,6 +21,8 @@ class StatisticsFragment : Fragment() {
     var howManyofEachEval = ArrayList<Int>()
     var pieDataEntrys = ArrayList<PieEntry>()
 
+    lateinit var gesture: GestureDetector
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -25,7 +30,19 @@ class StatisticsFragment : Fragment() {
         // Inflate the layout for this fragment
         val Inflater = inflater.inflate(R.layout.fragment_statistics, container, false)
 
-        val chart = Inflater.piechart
+
+        setHasOptionsMenu(true)
+
+
+        //val chart = Inflater.piechart
+
+        val chart = PieChart(context)
+        val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                                                     LinearLayout.LayoutParams.MATCH_PARENT)
+        chart.setPadding(16, 16, 16, 16)
+        chart.layoutParams = params
+        val container_layout = Inflater.findViewById<View>(R.id.chart_container) as LinearLayout
+        container_layout.addView(chart)
 
         val bundle = getArguments()
         if (bundle != null) {
@@ -56,10 +73,12 @@ class StatisticsFragment : Fragment() {
 
         }
 
-
-
         return Inflater
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.chartnav_menu, menu)
+
+    }
 
 }
