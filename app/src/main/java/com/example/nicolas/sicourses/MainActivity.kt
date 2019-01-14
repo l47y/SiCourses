@@ -15,6 +15,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_courses.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_statistics.*
+import android.widget.Toast
+import android.R.attr.orientation
+import android.content.res.Configuration
 
 
 class MainActivity : AppCompatActivity() {
@@ -144,6 +147,7 @@ class MainActivity : AppCompatActivity() {
         val sharedPredsObj = getSharedPreferences("data", Context.MODE_PRIVATE)
         sharedPredsObj.edit().clear().apply()
     }
+
 
 }
 

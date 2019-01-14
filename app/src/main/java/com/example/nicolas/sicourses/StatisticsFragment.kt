@@ -9,6 +9,7 @@ import android.view.*
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.Toast
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.utils.ColorTemplate
@@ -22,6 +23,10 @@ class StatisticsFragment : Fragment() {
     lateinit var mybundle: Bundle
 
 
+    public val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.MATCH_PARENT)
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +35,7 @@ class StatisticsFragment : Fragment() {
         val Inflater = inflater.inflate(R.layout.fragment_statistics, container, false)
 
         setHasOptionsMenu(true)
+        setRetainInstance(true)
 
         container_layout = Inflater.findViewById<View>(R.id.chart_container) as LinearLayout
         val args = arguments
@@ -42,9 +48,39 @@ class StatisticsFragment : Fragment() {
         return Inflater
     }
 
+    private fun makeBarChart() {
+        if (mybundle != null) {
+
+            container_layout.removeAllViews()
+
+            val chart = BarChart(context)
+            chart.setPadding(16, 16, 16, 16)
+            chart.layoutParams = params
+
+            val barDataEntrys = ArrayList<BarEntry>()
+            val courses = mybundle.getParcelableArrayList<CourseDataClass>("courses")
+            for (i in 0..courses.size-1) {
+                barDataEntrys.add(BarEntry(courses.get(i).media.toFloat(), i.toFloat()))
+            }
+            val set = BarDataSet(barDataEntrys, "bestCourses")
+            var colors = ArrayList<Int>()
+            for (c in ColorTemplate.VORDIPLOM_COLORS) {
+                colors.add(c)
+            }
+            set.setColors(colors)
+            val finalData = BarData(set)
+            chart.setData(finalData)
+            chart.animateY(1200)
+            chart.invalidate()
+            container_layout.addView(chart)
+        }
+    }
+
     private fun makePieChart() {
 
         if (mybundle != null) {
+
+            container_layout.removeAllViews()
 
             var allEvals = ArrayList<Int>()
             var evalNum = ArrayList<String>()
@@ -52,8 +88,6 @@ class StatisticsFragment : Fragment() {
             var pieDataEntrys = ArrayList<PieEntry>()
 
             val chart = PieChart(context)
-            val params = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT)
             chart.setPadding(16, 16, 16, 16)
             chart.layoutParams = params
 
@@ -63,6 +97,8 @@ class StatisticsFragment : Fragment() {
                 val evals = course.evals.split(",").dropLast(1).map { it.toInt() }
                 allEvals.addAll(evals)
             }
+
+
             val valueCounts = allEvals.groupingBy { it }.eachCount()
             evalNum.addAll(valueCounts.map { element -> element.key.toString()})
             howManyofEachEval.addAll(valueCounts.map {element -> element.value})
@@ -92,10 +128,10 @@ class StatisticsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId) {
             R.id.charnav_back -> {
-                Toast.makeText(context, "back clicked", Toast.LENGTH_SHORT).show()
+                makePieChart()
             }
             R.id.charnav_foward -> {
-                Toast.makeText(context, "foward clicked", Toast.LENGTH_SHORT).show()
+                makeBarChart()
             }
         }
         return true

@@ -35,6 +35,7 @@ class CoursesFragment : Fragment() {
         val Inflater = inflater.inflate(R.layout.fragment_courses, container, false)
 
         setHasOptionsMenu(true)
+        setRetainInstance(true)
 
         recyclView = Inflater.recyclerView_Courses
         recyclView.layoutManager = LinearLayoutManager(context)
