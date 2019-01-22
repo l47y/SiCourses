@@ -149,7 +149,7 @@ class StatisticsFragment : Fragment() {
             }
             val set = PieDataSet(pieDataEntrys, "evalDist")
             set.setSliceSpace(7f)
-       
+
             set.setColors(intArrayOf(
                 R.color.gradient10,
                 R.color.gradient9,

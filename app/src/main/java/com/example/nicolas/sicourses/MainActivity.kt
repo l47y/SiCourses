@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     val hasta = intent.getStringExtra("hasta")
 
                     val media = intent.getDoubleExtra("media", 0.toDouble())
-                    val newCourse = CourseDataClass(nombre, lugar, empresa, evalVec, de, hasta, media)
+                    val newCourse = CourseDataClass(nombre, lugar, empresa, evalVec, de, hasta, media, courses.size)
                     courses.add(newCourse)
                     saveData()
                 } else if (I_COME_FROM == "DeleteCourse") {
@@ -76,6 +76,11 @@ class MainActivity : AppCompatActivity() {
                 val coursesForSending = ArrayList<CourseDataClass>(courses)
                 bundle.putParcelableArrayList("courses", coursesForSending)
                 frag.setArguments(bundle)
+                replaceFragment(frag)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.nav_map -> {
+                val frag = MapFragment()
                 replaceFragment(frag)
                 return@OnNavigationItemSelectedListener true
             }

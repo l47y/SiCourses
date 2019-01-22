@@ -10,4 +10,5 @@ data class CourseDataClass(val nombre: String,
                            val evals: String,
                            val de: String,
                            val hasta: String,
-                           val media: Double): Parcelable
+                           val media: Double,
+                           val numero: Int): Parcelable

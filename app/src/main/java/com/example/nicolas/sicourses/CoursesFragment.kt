@@ -17,6 +17,10 @@ import kotlinx.android.synthetic.main.fragment_courses.view.*
 import java.nio.file.Files.delete
 import android.support.v7.widget.RecyclerView
 import com.google.gson.Gson
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class CoursesFragment : Fragment() {
@@ -150,6 +154,13 @@ class CoursesFragment : Fragment() {
         editor?.apply()
     }
 
+    private fun sortByDate() {
+        val format = SimpleDateFormat("dd.MM.yyyy")
+        val dates = courses.map {it.hasta}
+        
+        val stringDate = format.parse("asd")
+
+    }
 
 
 }
