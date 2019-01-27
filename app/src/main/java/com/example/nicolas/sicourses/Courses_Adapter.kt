@@ -49,7 +49,6 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
 
     override fun onBindViewHolder(p0: CustomViewHolder, p1: Int) {
 
-
         // Logic to highlight a clicked Item
         p0.layout.setOnClickListener {
             clicked_index = p1

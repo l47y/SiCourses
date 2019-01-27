@@ -53,13 +53,27 @@ class CoursesFragment : Fragment() {
             recyclView.adapter = myAdapter
         }
 
-        clicked_course_index = myAdapter.clicked_index
-
-
-
         Inflater.button_addcourse.setOnClickListener {
             val intent = Intent(context, AddCourseDatos::class.java)
             startActivity(intent)
+        }
+
+        Inflater.button_seedetails.setOnClickListener {
+            clicked_course_index = myAdapter.clicked_index
+            if (clicked_course_index == -1) {
+                Toast.makeText(context, "Tienes que seleccionar un curso!", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(context, DetailsOfCourseActivity::class.java)
+                val sendCourse = courses.get(clicked_course_index)
+                intent.putExtra("nombre", sendCourse.nombre)
+                intent.putExtra("lugar", sendCourse.lugar)
+                intent.putExtra("empresa", sendCourse.empresa)
+                intent.putExtra("de", sendCourse.de)
+                intent.putExtra("hasta", sendCourse.hasta)
+                intent.putExtra("evaluaciones", sendCourse.evals)
+                intent.putExtra("media", sendCourse.media.toString())
+                startActivity(intent)
+            }
         }
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(

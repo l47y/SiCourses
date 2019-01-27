@@ -26,38 +26,32 @@ class AddCourseEvals : AppCompatActivity() {
         val de = intent.getStringExtra("de")
         val hasta = intent.getStringExtra("hasta")
 
-//        val diez: Int = croller_diez.progress.toString().toInt()
-//        val nueve: Int = croller_nueve.progress.toString().toInt()
-//        val ocho = croller_ocho.progress.toString().toInt()
-//        val siete = croller_siete.progress.toString().toInt()
-//        val seis = croller_seis.progress.toString().toInt()
-//        val cinco = croller_cinco.progress.toString().toInt()
 
         // Croller Label updates
         croller_diez.setOnProgressChangedListener {
             diez = croller_diez.progress
             val prog = croller_diez.progress.toString()
-            croller_diez.label = "10s: $prog"
+            croller_diez.label = "Número 10s: $prog"
         }
         croller_nueve.setOnProgressChangedListener {
             nueve = croller_nueve.progress
             val prog = croller_nueve.progress.toString()
-            croller_nueve.label = "9s: $prog"
+            croller_nueve.label = "Número 9s: $prog"
         }
         croller_ocho.setOnProgressChangedListener {
             ocho = croller_ocho.progress
             val prog = croller_ocho.progress.toString()
-            croller_ocho.label = "8s: $prog"
+            croller_ocho.label = "Número 8s: $prog"
         }
         croller_siete.setOnProgressChangedListener {
             siete = croller_siete.progress
             val prog = croller_siete.progress.toString()
-            croller_siete.label = "7s: $prog"
+            croller_siete.label = "Número 7s: $prog"
         }
         croller_seis.setOnProgressChangedListener {
             seis = croller_seis.progress
             val prog = croller_seis.progress.toString()
-            croller_seis.label = "6s: $prog"
+            croller_seis.label = "Número 6s: $prog"
         }
         croller_cinco.setOnProgressChangedListener {
             cinco = croller_cinco.progress
@@ -101,10 +95,6 @@ class AddCourseEvals : AppCompatActivity() {
         val numbers = string.split(",").dropLast(1)
         val result = numbers.map { it.toInt() }
         val num = result.average()
-        println("FIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
-        println(num)
-        //val df = DecimalFormat("#.###")
-        //return df.format(num).toDouble()
         return num
     }
 
