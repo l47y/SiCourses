@@ -7,14 +7,21 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.LatLng
+import kotlinx.android.synthetic.main.fragment_map.*
 
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class MapFragment : Fragment(), OnMapReadyCallback {
 
-class MapFragment : Fragment() {
+
+    override fun onMapReady(p0: GoogleMap?) {
+
+    }
 
 
     override fun onCreateView(
@@ -22,5 +29,6 @@ class MapFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_map, container, false)
+
     }
 }

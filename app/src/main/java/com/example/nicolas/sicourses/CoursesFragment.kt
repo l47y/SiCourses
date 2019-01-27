@@ -30,6 +30,8 @@ class CoursesFragment : Fragment() {
     lateinit var recyclView: RecyclerView
 
     var courses = ArrayList<CourseDataClass>()
+    var clicked_course_index = -1
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +52,10 @@ class CoursesFragment : Fragment() {
             myAdapter = Courses_Adapter(courses)
             recyclView.adapter = myAdapter
         }
+
+        clicked_course_index = myAdapter.clicked_index
+
+
 
         Inflater.button_addcourse.setOnClickListener {
             val intent = Intent(context, AddCourseDatos::class.java)

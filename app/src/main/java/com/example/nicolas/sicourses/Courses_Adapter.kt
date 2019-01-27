@@ -1,4 +1,6 @@
 package com.example.nicolas.sicourses
+import android.graphics.Color
+import android.support.constraint.ConstraintLayout
 import java.math.RoundingMode
 import java.text.DecimalFormat
 
@@ -15,7 +17,8 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.recyclerlist_layout.view.*
 import kotlin.coroutines.experimental.coroutineContext
 
-class Courses_Adapter(courses: ArrayList<CourseDataClass>): RecyclerView.Adapter<Courses_Adapter.CustomViewHolder>(), Filterable {
+class Courses_Adapter(courses: ArrayList<CourseDataClass>):
+    RecyclerView.Adapter<Courses_Adapter.CustomViewHolder>(), Filterable {
 
     // Initialization of Courses and a copy for filtering
     private var Courses: ArrayList<CourseDataClass> = courses
@@ -25,8 +28,12 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>): RecyclerView.Adapter
         CoursesFull = ArrayList(Courses)
     }
 
+    // Some other values needed
+    var clicked_index = -1
+
     // Viewholder class
     inner class CustomViewHolder(v: View): RecyclerView.ViewHolder(v) {
+        val layout = v.findViewById<ConstraintLayout>(R.id.const_layout)
         val nombreView = v.findViewById<TextView>(R.id.recyclerlayout_nombre)
         val lugarView = v.findViewById<TextView>(R.id.recyclerlayout_lugar)
         val empresaView = v.findViewById<TextView>(R.id.recyclerlayout_empresa)
@@ -41,6 +48,19 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>): RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(p0: CustomViewHolder, p1: Int) {
+
+
+        // Logic to highlight a clicked Item
+        p0.layout.setOnClickListener {
+            clicked_index = p1
+            notifyDataSetChanged()
+        }
+        if(clicked_index == p1){
+            p0.layout.setBackgroundColor(Color.parseColor("#567845"));
+        } else {
+            p0.layout.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+
         val Course = Courses.get(p1)
         val empresa = Course.empresa
         val lugar = Course.lugar
@@ -55,6 +75,8 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>): RecyclerView.Adapter
         p0.lugarView.text = "Lugar: $lugar"
         p0.mediaView.text = "$meanCourse"
         p0.fechaView.text = "$de - $hasta"
+
+        
     }
 
     override fun getItemViewType(position: Int): Int {
