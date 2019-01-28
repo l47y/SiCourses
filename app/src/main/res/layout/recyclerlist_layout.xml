@@ -6,6 +6,7 @@
                                              android:layout_height="wrap_content">
 
     <android.support.v7.widget.CardView
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -42,16 +43,19 @@
                     app:layout_constraintTop_toBottomOf="@+id/recyclerlayout_lugar"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/recyclerlayout_media" android:layout_marginEnd="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"/>
+                    app:layout_constraintHorizontal_bias="0.0"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerlayout_participantes"/>
             <TextView
                     android:layout_width="102dp"
                     android:layout_height="0dp"
                     android:id="@+id/recyclerlayout_media"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
                     android:background="#99008577" android:textStyle="bold"
-                    android:textSize="16sp" android:gravity="center" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"/>
+                    android:textSize="16sp" android:gravity="center"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerlayout_participantes"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
             <TextView
                     android:text="Media"
                     android:layout_width="wrap_content"
@@ -67,6 +71,16 @@
                     android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/recyclerlayout_nombre"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/recyclerlayout_media" android:layout_marginEnd="8dp"/>
+
+            <TextView
+                    android:text="Participantes"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:id="@+id/recyclerlayout_participantes"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="8dp"
+                    android:visibility="gone" android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
         </android.support.constraint.ConstraintLayout>
 
 

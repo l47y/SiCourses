@@ -28,7 +28,6 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         CoursesFull = ArrayList(Courses)
     }
 
-    // Some other values needed
     var clicked_index = -1
 
     // Viewholder class
@@ -39,6 +38,7 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         val empresaView = v.findViewById<TextView>(R.id.recyclerlayout_empresa)
         val mediaView = v.findViewById<TextView>(R.id.recyclerlayout_media)
         val fechaView = v.findViewById<TextView>(R.id.recyclerlayout_fecha)
+        val participantesView = v.findViewById<TextView>(R.id.recyclerlayout_participantes)
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CustomViewHolder {
@@ -55,9 +55,11 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
             notifyDataSetChanged()
         }
         if(clicked_index == p1){
-            p0.layout.setBackgroundColor(Color.parseColor("#567845"));
+            p0.layout.setBackgroundColor(Color.parseColor("#567845"))
+            p0.participantesView.visibility = View.VISIBLE
         } else {
-            p0.layout.setBackgroundColor(Color.parseColor("#ffffff"));
+            p0.layout.setBackgroundColor(Color.parseColor("#ffffff"))
+            p0.participantesView.visibility = View.GONE
         }
 
         val Course = Courses.get(p1)
@@ -68,12 +70,14 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         val hasta = Course.hasta
         val numero = Course.numero.toString()
         val nombre = Course.nombre
-        val courseNumero = (CoursesFull.size - p1).toString()
+        val evals = Course.evals
+        val numberParticipantes = evals.split(",").dropLast(1).size.toString()
         p0.nombreView.text = "$nombre"
         p0.empresaView.text = "Empresa: $empresa"
         p0.lugarView.text = "Lugar: $lugar"
         p0.mediaView.text = "$meanCourse"
         p0.fechaView.text = "$de - $hasta"
+        p0.participantesView.text = "Participantes: $numberParticipantes"
     }
 
     override fun getItemViewType(position: Int): Int {
