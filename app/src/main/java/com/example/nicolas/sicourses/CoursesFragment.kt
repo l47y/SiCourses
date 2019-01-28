@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.fragment_courses.view.*
 import java.nio.file.Files.delete
 import android.support.v7.widget.RecyclerView
 import com.google.gson.Gson
+import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -73,6 +74,33 @@ class CoursesFragment : Fragment() {
                 intent.putExtra("evaluaciones", sendCourse.evals)
                 intent.putExtra("media", sendCourse.media.toString())
                 startActivity(intent)
+            }
+        }
+
+        Inflater.button_sharecourse.setOnClickListener {
+            clicked_course_index = myAdapter.clicked_index
+            if (clicked_course_index != -1) {
+                val shareCourse = courses.get(clicked_course_index)
+                val nombre = shareCourse.nombre
+                val empresa = shareCourse.empresa
+                val lugar = shareCourse.lugar
+                val de = shareCourse.de
+                val hasta = shareCourse.hasta
+                var media = shareCourse.media
+                val mediaString = "%.3f".format(media)
+
+
+                val evals = shareCourse.evals
+                val sendString = "He dado un curso de *$nombre* en la empresa *$empresa* en *$lugar*.\n" +
+                        "Me han dado " +
+                        "las siguientes evaluaciones: \n$evals. \nLa media es: $mediaString. \nLo he dado desde " +
+                        "$de hasta $hasta."
+                val sendIntent: Intent = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    putExtra(Intent.EXTRA_TEXT, sendString.toString())
+                    type = "text/plain"
+                }
+                startActivity(sendIntent)
             }
         }
 

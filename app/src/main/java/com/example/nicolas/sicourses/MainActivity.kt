@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
                 val frag = CoursesFragment()
                 val bundle = Bundle()
 
-                // If coming from AddCourseDatos, than add the new course to courses
                 if (I_COME_FROM == "AddCourse") {
                     val intent = getIntent()
                     val nombre = intent.getStringExtra("nombre")
@@ -51,7 +50,6 @@ class MainActivity : AppCompatActivity() {
                     saveData()
                 }
 
-                // Sort reversed by date before sending
                 courses = ArrayList(courses.sortedWith(CompareCourses).asReversed())
                 val coursesForSending = ArrayList<CourseDataClass>(courses)
                 bundle.putParcelableArrayList("courses", coursesForSending)
