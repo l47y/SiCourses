@@ -69,13 +69,11 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         val numero = Course.numero.toString()
         val nombre = Course.nombre
         val courseNumero = (CoursesFull.size - p1).toString()
-        p0.nombreView.text = "$courseNumero: $nombre"
+        p0.nombreView.text = "$nombre"
         p0.empresaView.text = "Empresa: $empresa"
         p0.lugarView.text = "Lugar: $lugar"
         p0.mediaView.text = "$meanCourse"
         p0.fechaView.text = "$de - $hasta"
-
-        
     }
 
     override fun getItemViewType(position: Int): Int {

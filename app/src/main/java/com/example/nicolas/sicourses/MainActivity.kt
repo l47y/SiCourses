@@ -30,17 +30,12 @@ class MainActivity : AppCompatActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item->
         when(item.itemId) {
-            R.id.nav_home -> {
-                loadData()
-                replaceFragment(HomeFragment())
-                return@OnNavigationItemSelectedListener true
-            }
             R.id.nav_courses -> {
                 loadData()
                 val frag = CoursesFragment()
                 val bundle = Bundle()
 
-                // If coming from AddCourseDatos, than add the new course to courses and send the bundle to the CoursesFragment
+                // If coming from AddCourseDatos, than add the new course to courses
                 if (I_COME_FROM == "AddCourse") {
                     val intent = getIntent()
                     val nombre = intent.getStringExtra("nombre")
@@ -54,15 +49,10 @@ class MainActivity : AppCompatActivity() {
                     val newCourse = CourseDataClass(nombre, lugar, empresa, evalVec, de, hasta, media, courses.size)
                     courses.add(newCourse)
                     saveData()
-                } else if (I_COME_FROM == "DeleteCourse") {
-//                    val intent = getIntent()
-//                    courses = ArrayList<CourseDataClass>()
-//                    val coursesFromIntent = intent.getParcelableArrayExtra("courses")
-//                    for (course in coursesFromIntent) {
-//                        courses.add(course)
-//                    }
-
                 }
+
+                // Sort reversed by date before sending
+                courses = ArrayList(courses.sortedWith(CompareCourses).asReversed())
                 val coursesForSending = ArrayList<CourseDataClass>(courses)
                 bundle.putParcelableArrayList("courses", coursesForSending)
                 frag.setArguments(bundle)
@@ -99,27 +89,19 @@ class MainActivity : AppCompatActivity() {
             clearAll()
         }
 
-        //loadData()
-
         bottom_nav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         val intent = getIntent()
         val WHERE_DO_I_COME_FROM: String? = intent.getStringExtra("I_COME_FROM")
 
-        // If coming from AddCourseDatos than Start the CoursesFragment, else start the HomeFragment
-        if (WHERE_DO_I_COME_FROM == "AddCourse") {
-            I_COME_FROM = "AddCourse"
-            bottom_nav.setSelectedItemId(R.id.nav_courses)
-            I_COME_FROM = "nowhere"
-        } else if(WHERE_DO_I_COME_FROM == "DeleteFrom") {
-            I_COME_FROM == "DeleteCourse"
-            bottom_nav.setSelectedItemId(R.id.nav_courses)
-            I_COME_FROM == "nowhere"
+        // Check from which activity we come
+        I_COME_FROM = when(WHERE_DO_I_COME_FROM)  {
+            "AddCourse" -> "AddCourse"
+            "DeleteCourse" -> "DeleteCourse"
+            else -> "nowhere"
         }
-
-        else {
-            replaceFragment(HomeFragment())
-        }
+        bottom_nav.setSelectedItemId(R.id.nav_courses)
+        I_COME_FROM = "nowhere"
     }
 
     private fun replaceFragment(fragment: Fragment) {

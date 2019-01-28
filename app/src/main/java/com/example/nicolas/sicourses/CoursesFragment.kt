@@ -155,7 +155,13 @@ class CoursesFragment : Fragment() {
                 return true
             }
             R.id.sortPorMedia -> {
-                courses = ArrayList(courses.sortedWith(compareBy({ it.media})))
+                courses = ArrayList(courses.sortedWith(compareBy({ it.media})).asReversed())
+                myAdapter = Courses_Adapter(courses)
+                recyclView.adapter = myAdapter
+                return true
+            }
+            R.id.sortPorFecha -> {
+                courses = ArrayList(courses.sortedWith(CompareCourses).asReversed())
                 myAdapter = Courses_Adapter(courses)
                 recyclView.adapter = myAdapter
                 return true
@@ -173,14 +179,4 @@ class CoursesFragment : Fragment() {
         editor?.putString("savedCourses", json)
         editor?.apply()
     }
-
-    private fun sortByDate() {
-        val format = SimpleDateFormat("dd.MM.yyyy")
-        val dates = courses.map {it.hasta}
-        
-        val stringDate = format.parse("asd")
-
-    }
-
-
 }
