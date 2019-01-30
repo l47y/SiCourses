@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.fragment_statistics.view.*
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
-
-
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class StatisticsFragment : Fragment() {
@@ -66,9 +66,12 @@ class StatisticsFragment : Fragment() {
             var barDataEntrys = ArrayList<BarEntry>()
             var axisLabels = ArrayList<String>()
             var courses = mybundle.getParcelableArrayList<CourseDataClass>("courses")
-            courses = ArrayList(courses.sortedWith(compareBy({ it.media})))
+            courses = ArrayList(courses.sortedWith(compareBy({ it.media })))
 
-            for (i in 0..courses.size-1) {
+            var numberTopCourses = 5
+            if (courses.size > numberTopCourses) courses = ArrayList(courses.dropLast(courses.size - numberTopCourses))
+
+            for (i in 0..courses.size - 1) {
                 val media = courses.get(i).media.toFloat()
                 val nombre = courses.get(i).nombre
                 val empresa = courses.get(i).empresa
@@ -79,11 +82,7 @@ class StatisticsFragment : Fragment() {
             }
 
             val set = BarDataSet(barDataEntrys, "bestCourses")
-            var colors = ArrayList<Int>()
-            for (c in ColorTemplate.VORDIPLOM_COLORS) {
-                colors.add(c)
-            }
-
+            set.setColors(intArrayOf(R.color.gradient8), context)
             val xAxis = chart.xAxis
             val axisRight = chart.axisRight
             val axisLeft = chart.axisLeft
@@ -91,27 +90,25 @@ class StatisticsFragment : Fragment() {
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
             xAxis.setLabelRotationAngle(-90.toFloat())
             xAxis.setDrawGridLines(false)
-            xAxis.setLabelCount(axisLabels.size);
+            xAxis.setLabelCount(axisLabels.size)
 
-
-            axisRight.setDrawZeroLine(false)
-            axisRight.setDrawGridLines(false)
-            axisRight.setDrawLabels(false)
-
-            axisLeft.setDrawZeroLine(false)
-            axisLeft.setDrawGridLines(false)
+            axisLeft.isEnabled = false
+            axisRight.isEnabled = false
 
             xAxis.setValueFormatter { value, axis ->
                 val index = value.toInt()
                 axisLabels.get(index)
             }
 
-
-            set.setColors(colors)
             val finalData = BarData(set)
             chart.setData(finalData)
             chart.animateY(1200)
             chart.setScaleEnabled(false)
+            chart.setDrawGridBackground(false)
+
+            chart.legend.isEnabled = false
+            chart.description.text = "Los Top Cursos según Media"
+            chart.description.textSize = 16f
 
             chart.invalidate()
             container_layout.addView(chart)
@@ -140,30 +137,37 @@ class StatisticsFragment : Fragment() {
                 allEvals.addAll(evals)
             }
 
+            val totalMedia = allEvals.average()
 
             val valueCounts = allEvals.groupingBy { it }.eachCount()
-            evalNum.addAll(valueCounts.map { element -> element.key.toString()})
-            howManyofEachEval.addAll(valueCounts.map {element -> element.value})
-            for (i in 0..howManyofEachEval.size-1) {
+            evalNum.addAll(valueCounts.map { element -> element.key.toString() })
+            howManyofEachEval.addAll(valueCounts.map { element -> element.value })
+            for (i in 0..howManyofEachEval.size - 1) {
                 pieDataEntrys.add(PieEntry(howManyofEachEval.get(i).toFloat(), evalNum.get(i)))
             }
             val set = PieDataSet(pieDataEntrys, "evalDist")
             set.setSliceSpace(7f)
 
-            set.setColors(intArrayOf(
-                R.color.gradient10,
-                R.color.gradient9,
-                R.color.gradient8,
-                R.color.gradient7,
-                R.color.gradient6,
-                R.color.gradient5), context)
-
+            set.setColors(
+                intArrayOf(
+                    R.color.gradient10,
+                    R.color.gradient9,
+                    R.color.gradient8,
+                    R.color.gradient7,
+                    R.color.gradient6,
+                    R.color.gradient5
+                ), context
+            )
 
             val finalData = PieData(set)
+            finalData.setValueTextColor(R.color.primary_dark_material_dark)
             chart.setData(finalData)
             chart.animateY(1200)
+            chart.legend.isEnabled = false
+            chart.description.text = "Distribución de Evaluaciones"
+            chart.description.textSize = 16f
+            chart.centerText = "Media Total: " + roundOnDecimal(totalMedia)
             chart.invalidate()
-
             container_layout.addView(chart)
         }
     }
@@ -173,7 +177,7 @@ class StatisticsFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.charnav_back -> {
                 makePieChart()
             }
@@ -184,6 +188,9 @@ class StatisticsFragment : Fragment() {
         return true
     }
 
-
-
+    private fun roundOnDecimal(double: Double): String {
+        val df = DecimalFormat("#.###")
+        df.roundingMode = RoundingMode.CEILING
+        return df.format(double)
+    }
 }
