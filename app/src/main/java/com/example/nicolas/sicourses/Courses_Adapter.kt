@@ -39,6 +39,7 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         val mediaView = v.findViewById<TextView>(R.id.recyclerlayout_media)
         val fechaView = v.findViewById<TextView>(R.id.recyclerlayout_fecha)
         val participantesView = v.findViewById<TextView>(R.id.recyclerlayout_participantes)
+        val evalsView = v.findViewById<TextView>(R.id.recyclerlayout_evals)
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CustomViewHolder {
@@ -55,11 +56,13 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
             notifyDataSetChanged()
         }
         if(clicked_index == p1){
-            p0.layout.setBackgroundColor(Color.parseColor("#567845"))
+            p0.layout.setBackgroundColor(Color.parseColor("#33008577"))
             p0.participantesView.visibility = View.VISIBLE
+            p0.evalsView.visibility = View.VISIBLE
         } else {
             p0.layout.setBackgroundColor(Color.parseColor("#ffffff"))
             p0.participantesView.visibility = View.GONE
+            p0.evalsView.visibility = View.GONE
         }
 
         val Course = Courses.get(p1)
@@ -72,12 +75,19 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         val nombre = Course.nombre
         val evals = Course.evals
         val numberParticipantes = evals.split(",").dropLast(1).size.toString()
+
+        val valueCounts = evals.split(",").dropLast(1).groupingBy { it }.eachCount()
+        var evalString = ""
+        for ((key, value) in valueCounts) evalString += value.toString() + "x" + key + ", "
+        evalString = evalString.removeSuffix(", ")
+
         p0.nombreView.text = "$nombre"
         p0.empresaView.text = "Empresa: $empresa"
         p0.lugarView.text = "Lugar: $lugar"
         p0.mediaView.text = "$meanCourse"
         p0.fechaView.text = "$de - $hasta"
         p0.participantesView.text = "Participantes: $numberParticipantes"
+        p0.evalsView.text = "Evaluaciones: $evalString"
     }
 
     override fun getItemViewType(position: Int): Int {

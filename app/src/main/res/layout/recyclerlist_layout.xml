@@ -20,6 +20,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/const_layout">
+
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -39,13 +40,13 @@
             <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/recyclerlayout_empresa" android:layout_marginTop="8dp"
+                    android:id="@+id/recyclerlayout_empresa"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerlayout_lugar"
                     app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toStartOf="@+id/recyclerlayout_media" android:layout_marginEnd="8dp"
                     app:layout_constraintHorizontal_bias="0.0"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/recyclerlayout_participantes"/>
+                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.0" android:layout_marginTop="8dp"/>
             <TextView
                     android:layout_width="102dp"
                     android:layout_height="0dp"
@@ -53,9 +54,8 @@
                     android:background="#99008577" android:textStyle="bold"
                     android:textSize="16sp" android:gravity="center"
                     android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/recyclerlayout_participantes"
-                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"/>
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/recyclerlayout_empresa"/>
             <TextView
                     android:text="Media"
                     android:layout_width="wrap_content"
@@ -78,8 +78,18 @@
                     android:layout_height="wrap_content" android:id="@+id/recyclerlayout_participantes"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="8dp"
-                    android:visibility="gone" android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:visibility="gone"
+                    android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/recyclerlayout_empresa"/>
+            <TextView
+                    android:text="Evaluaciones"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recyclerlayout_evals" android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerlayout_participantes"
+                    app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    android:visibility="gone"/>
 
         </android.support.constraint.ConstraintLayout>
 
