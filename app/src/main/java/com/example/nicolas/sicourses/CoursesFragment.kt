@@ -68,9 +68,8 @@ class CoursesFragment : Fragment() {
                 val lugar = shareCourse.lugar
                 val de = shareCourse.de
                 val hasta = shareCourse.hasta
-                var media = shareCourse.media
+                val media = shareCourse.media
                 val mediaString = "%.3f".format(media)
-
 
                 val evals = shareCourse.evals
                 val sendString = "He dado un curso de *$nombre* en la empresa *$empresa* en *$lugar*.\n" +
@@ -79,7 +78,7 @@ class CoursesFragment : Fragment() {
                         "$de hasta $hasta."
                 val sendIntent: Intent = Intent().apply {
                     action = Intent.ACTION_SEND
-                    putExtra(Intent.EXTRA_TEXT, sendString.toString())
+                    putExtra(Intent.EXTRA_TEXT, sendString)
                     type = "text/plain"
                 }
                 startActivity(sendIntent)
@@ -107,7 +106,12 @@ class CoursesFragment : Fragment() {
 
                 builder.setMessage(string)
                 builder.setPositiveButton("Si") { dialog, which ->
+                    println("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                    println("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+                    println(position)
                     courses.removeAt(position)
+                    println(courses.size)
+                    println(courses)
                     saveData()
                     myAdapter = Courses_Adapter(courses)
                     recyclView.adapter = myAdapter
@@ -138,7 +142,6 @@ class CoursesFragment : Fragment() {
             override fun onQueryTextSubmit(query: String): Boolean {
                 return false
             }
-
         })
     }
 
