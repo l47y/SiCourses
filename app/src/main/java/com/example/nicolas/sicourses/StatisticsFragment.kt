@@ -14,11 +14,8 @@ import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
-import kotlinx.android.synthetic.main.fragment_statistics.*
 import kotlinx.android.synthetic.main.fragment_statistics.view.*
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import java.util.zip.Inflater
+import Helpers.*
 
 
 class StatisticsFragment : Fragment() {
@@ -191,18 +188,6 @@ class StatisticsFragment : Fragment() {
             }
         }
         return true
-    }
-
-    private fun roundOnDecimal(double: Double): String {
-        val df = DecimalFormat("#.###")
-        df.roundingMode = RoundingMode.CEILING
-        return df.format(double)
-    }
-
-    private fun roundOnInteger(double: Double): String {
-        val df = DecimalFormat("#")
-        df.roundingMode = RoundingMode.CEILING
-        return df.format(double)
     }
 
     inner class myMarkerView: IMarker {

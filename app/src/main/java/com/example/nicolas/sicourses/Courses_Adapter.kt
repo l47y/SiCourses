@@ -1,21 +1,17 @@
 package com.example.nicolas.sicourses
+
 import android.graphics.Color
 import android.support.constraint.ConstraintLayout
-import java.math.RoundingMode
-import java.text.DecimalFormat
-
-import android.support.constraint.R.id.parent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-import android.widget.Toast
-import kotlinx.android.synthetic.main.recyclerlist_layout.view.*
-import kotlin.coroutines.experimental.coroutineContext
+
+import Helpers.*
+
 
 class Courses_Adapter(courses: ArrayList<CourseDataClass>):
     RecyclerView.Adapter<Courses_Adapter.CustomViewHolder>(), Filterable {
@@ -137,11 +133,6 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         }
     }
 
-    private fun roundOnDecimal(double: Double): String {
-        val df = DecimalFormat("#.###")
-        df.roundingMode = RoundingMode.CEILING
-        return df.format(double)
-    }
 
 }
 

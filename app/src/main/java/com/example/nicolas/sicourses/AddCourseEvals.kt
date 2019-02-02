@@ -1,8 +1,10 @@
 package com.example.nicolas.sicourses
 
+import Helpers.convertIntVecToSting
+import Helpers.convertStringVecIntoMedia
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_add_course_evals.*
 
 
@@ -63,7 +65,7 @@ class AddCourseEvals : AppCompatActivity() {
             val evalVec = arrayListOf(diez, nueve, ocho, siete, seis, cinco)
             val intent = Intent(this, MainActivity::class.java)
             val evalVecParcable = convertIntVecToSting(evalVec)
-            val media = convertStringVecIntoMedia(evalVecParcable)
+            val media =  convertStringVecIntoMedia(evalVecParcable)
             intent.putExtra("nombre", nombre)
             intent.putExtra("lugar", lugar)
             intent.putExtra("empresa", empresa)
@@ -75,27 +77,5 @@ class AddCourseEvals : AppCompatActivity() {
             intent.putExtra("I_COME_FROM", "AddCourse")
             startActivity(intent)
         }
-
     }
-    
-    private fun convertIntVecToSting(intVec: ArrayList<Int>): String {
-        val b = StringBuilder()
-        for (i in 0..intVec.size-1) {
-            if (intVec[i] > 0) {
-                for (j in 1..intVec[i]) {
-                    val num = 10-i
-                    b.append("$num,")
-                }
-            }
-        }
-        return b.toString().removeSuffix(",")
-    }
-
-    private fun convertStringVecIntoMedia(string: String): Double {
-        val numbers = string.split(",")
-        val result = numbers.map { it.toInt() }
-        val num = result.average()
-        return num
-    }
-
 }

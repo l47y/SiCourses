@@ -5,24 +5,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.*
-import android.widget.SearchView
-import android.widget.Toast
-import kotlinx.android.synthetic.main.fragment_courses.*
-import kotlinx.android.synthetic.main.fragment_courses.view.*
-import java.nio.file.Files.delete
-import android.support.v7.widget.RecyclerView
 import com.google.gson.Gson
-import java.lang.StringBuilder
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-import java.util.*
-import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.fragment_courses.view.*
 
 
 class CoursesFragment : Fragment() {
@@ -214,4 +203,6 @@ class CoursesFragment : Fragment() {
         editor?.putString("savedCourses", json)
         editor?.apply()
     }
+
+
 }

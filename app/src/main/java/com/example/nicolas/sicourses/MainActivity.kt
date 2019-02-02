@@ -1,34 +1,25 @@
 package com.example.nicolas.sicourses
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.design.internal.NavigationMenuItemView
 import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
-import android.widget.Button
-import android.widget.TextView
+import android.support.v7.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_courses.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_statistics.*
-import android.widget.Toast
-import android.R.attr.orientation
-import android.content.res.Configuration
 
 
 class MainActivity : AppCompatActivity() {
 
 
     // global variables
-    public var courses = mutableListOf<CourseDataClass>() // List of courses
-    public var I_COME_FROM = "nowhere" // Indicator from where the activity is started
+    var courses = mutableListOf<CourseDataClass>() // List of courses
+    var I_COME_FROM = "nowhere" // Indicator from where the activity is started
 
 
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item->
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item->
         when(item.itemId) {
             R.id.nav_courses -> {
                 loadData()
@@ -115,7 +106,6 @@ class MainActivity : AppCompatActivity() {
         val json = gson.toJson(courses)
         editor.putString("savedCourses", json)
         editor.apply()
-
     }
 
     private fun loadData() {
