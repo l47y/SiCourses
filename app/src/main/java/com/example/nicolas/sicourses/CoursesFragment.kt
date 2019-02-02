@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class CoursesFragment : Fragment() {
@@ -31,6 +32,11 @@ class CoursesFragment : Fragment() {
     lateinit var recyclView: RecyclerView
 
     var courses = ArrayList<CourseDataClass>()
+    private var CoursesFull: ArrayList<CourseDataClass>
+    init {
+        CoursesFull = ArrayList(courses)
+    }
+
     var clicked_course_index = -1
 
 
@@ -50,6 +56,7 @@ class CoursesFragment : Fragment() {
         val bundle = getArguments()
         if (bundle != null) {
             courses = bundle.getParcelableArrayList<CourseDataClass>("courses")
+            CoursesFull = ArrayList(courses)
             myAdapter = Courses_Adapter(courses)
             recyclView.adapter = myAdapter
         }
@@ -99,17 +106,32 @@ class CoursesFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
-                val nameToDelete = courses.get(position).nombre
+                val delCourse = courses.get(position)
+                val nameToDelete = delCourse.nombre
+
                 val builder = AlertDialog.Builder(context!!)
                 val string = "Estás seguro que quieres borrar el curso $nameToDelete ?"
                 builder.setTitle("Confirmación necesaria")
 
                 builder.setMessage(string)
                 builder.setPositiveButton("Si") { dialog, which ->
+                    println(courses)
+                    println(courses.size)
                     println("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                     println("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+
+                    var delIndex = 0
+                    // Now delete the swiped object in CoursesFull and not in courses, because when you filter the list
+                    // it will only save the filtered list without the deleted element
+                    CoursesFull.forEachIndexed {ind, el ->
+                        if(el.nombre == delCourse.nombre && el.empresa == delCourse.empresa && el.de == delCourse.de) {
+                           delIndex = ind
+                        }
+                    }
+                    CoursesFull.removeAt(delIndex)
                     println(position)
-                    courses.removeAt(position)
+                    //courses.removeAt(position)
+                    courses = ArrayList(CoursesFull)
                     println(courses.size)
                     println(courses)
                     saveData()

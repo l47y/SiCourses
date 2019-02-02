@@ -74,9 +74,9 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         val numero = Course.numero.toString()
         val nombre = Course.nombre
         val evals = Course.evals
-        val numberParticipantes = evals.split(",").dropLast(1).size.toString()
+        val numberParticipantes = evals.split(",").size.toString()
 
-        val valueCounts = evals.split(",").dropLast(1).groupingBy { it }.eachCount()
+        val valueCounts = evals.split(",").groupingBy { it }.eachCount()
         var evalString = ""
         for ((key, value) in valueCounts) evalString += value.toString() + "x" + key + ", "
         evalString = evalString.removeSuffix(", ")

@@ -135,7 +135,7 @@ class StatisticsFragment : Fragment() {
             courses = mybundle.getParcelableArrayList<CourseDataClass>("courses")
 
             for (course in courses) {
-                val evals = course.evals.split(",").dropLast(1).map { it.toInt() }
+                val evals = course.evals.split(",").map { it.toInt() }
                 allEvals.addAll(evals)
             }
 

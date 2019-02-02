@@ -92,7 +92,7 @@ class AddCourseEvals : AppCompatActivity() {
     }
 
     private fun convertStringVecIntoMedia(string: String): Double {
-        val numbers = string.split(",").dropLast(1)
+        val numbers = string.split(",")
         val result = numbers.map { it.toInt() }
         val num = result.average()
         return num
