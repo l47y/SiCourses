@@ -20,7 +20,6 @@ import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_courses.view.*
 import java.io.File
 import java.io.FileOutputStream
-import java.net.URI
 
 
 class CoursesFragment : Fragment() {
@@ -164,12 +163,8 @@ class CoursesFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == 111 && resultCode == RESULT_OK) {
-
             val selectedFile = data?.data
-            val path = URI(selectedFile.toString())
-            val file = File(selectedFile?.path)
             val inputStream = context!!.getContentResolver().openInputStream(selectedFile)
             val size = inputStream.available()
             val buffer = ByteArray(size)
@@ -179,15 +174,12 @@ class CoursesFragment : Fragment() {
             println(string_from_file)
             val newCourseStrings = string_from_file.split("/n")
             var newCourses: MutableList<CourseDataClass> = newCourseStrings.map { convertStringToCourse(it) }.toMutableList()
-            println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
             println(newCourses)
             courses = ArrayList(newCourses)
             saveData()
             myAdapter = Courses_Adapter(courses)
             recyclView.adapter = myAdapter
-
         }
-
     }
 
     // Sort List
@@ -251,20 +243,7 @@ class CoursesFragment : Fragment() {
                 val intent = Intent()
                     .setType("*/*")
                     .setAction(Intent.ACTION_GET_CONTENT)
-//                println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-//                println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU")
-//                println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-//                println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU")
-//                println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
                 startActivityForResult(Intent.createChooser(intent, "Elige backup archivo"), 111)
-//                println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-//                println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU")
-//                println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-//                println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU")
-//                println("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
-                // val newCourseStrings = string_from_file.split("/n")
-                //var newCourses: MutableList<CourseDataClass> = newCourseStrings.map { convertStringToCourse(it) }.toMutableList()
-                //println(newCourses)
                 return true
             }
             R.id.exportartodo -> {
