@@ -9,9 +9,13 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.text.InputType
 import android.view.*
+import android.widget.EditText
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_courses.view.*
+
+
 
 
 class CoursesFragment : Fragment() {
@@ -188,6 +192,35 @@ class CoursesFragment : Fragment() {
                 courses = ArrayList(courses.sortedWith(CompareCourses).asReversed())
                 myAdapter = Courses_Adapter(courses)
                 recyclView.adapter = myAdapter
+                return true
+            }
+            R.id.borrarrtodo -> {
+                var m_Text = "";
+                val builder = AlertDialog.Builder(context!!)
+                builder.setTitle("Para confirmar insertar la palabra 'confirmar'")
+                val input = EditText(context!!)
+                input.inputType = InputType.TYPE_CLASS_TEXT
+                builder.setView(input)
+                builder.setPositiveButton(
+                    "Confirmar"
+                ) {
+                    dialog, which -> m_Text = input.text.toString()
+                    if (m_Text == "confirmar") {
+                        courses.clear()
+                        saveData()
+                    }
+
+                }
+                builder.setNegativeButton(
+                    "Atrás"
+                ) { dialog, which -> dialog.cancel() }
+                builder.show()
+                return true
+            }
+            R.id.importartodo -> {
+                return true
+            }
+            R.id.exportartodo -> {
                 return true
             }
             else -> super.onOptionsItemSelected(item)

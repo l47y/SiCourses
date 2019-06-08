@@ -35,4 +35,25 @@
 
     </item>
 
+    <item android:id="@+id/options"
+          android:icon="@drawable/ic_more_vert_black_24dp"
+          android:title="Opciones"
+          app:showAsAction="always">
+
+        <menu>
+
+            <item android:id="@+id/exportartodo"
+                  android:title="Exportar"/>
+
+            <item android:id="@+id/importartodo"
+                  android:title="Importar"/>
+
+            <item android:id="@+id/borrarrtodo"
+                  android:title="Borrar todo"/>
+
+        </menu>
+
+    </item>
+
 </menu>
+
