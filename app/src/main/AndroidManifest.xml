@@ -25,6 +25,29 @@
         <activity android:name=".AddCourseEvals">
 
         </activity>
+        
+        <!--<provider android:authorities="${applicationId.provider"-->
+                  <!--android:name="android.support.v4.content.FileProvider"-->
+                  <!--android:exported="false"-->
+                  <!--android:grantUriPermissions="true">-->
+
+            <!--<meta-data android:name="android.support.FILE_PROVIDER_PATHS"-->
+                       <!--android:resource="@xml/privider_paths">-->
+                <!---->
+            <!--</meta-data>-->
+        <!--</provider>-->
+
+        <provider
+                android:name="android.support.v4.content.FileProvider"
+                android:authorities="com.mydomain.myapp.fileprovider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+            <meta-data
+                    android:name="android.support.FILE_PROVIDER_PATHS"
+                    android:resource="@xml/provider_paths" />
+        </provider>
+
+        
     </application>
 
 </manifest>

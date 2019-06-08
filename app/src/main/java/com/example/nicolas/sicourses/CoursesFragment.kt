@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.FileProvider
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -14,6 +15,8 @@ import android.view.*
 import android.widget.EditText
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_courses.view.*
+import java.io.File
+import java.io.FileOutputStream
 
 
 
@@ -23,6 +26,7 @@ class CoursesFragment : Fragment() {
     lateinit var myAdapter: Courses_Adapter
     lateinit var searchView: android.support.v7.widget.SearchView
     lateinit var recyclView: RecyclerView
+    lateinit var fos: FileOutputStream
 
     var courses = ArrayList<CourseDataClass>()
     private var CoursesFull: ArrayList<CourseDataClass>
@@ -108,10 +112,6 @@ class CoursesFragment : Fragment() {
 
                 builder.setMessage(string)
                 builder.setPositiveButton("Si") { dialog, which ->
-                    println(courses)
-                    println(courses.size)
-                    println("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
-                    println("HOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
 
                     var delIndex = 0
                     // Now delete the swiped object in CoursesFull and not in courses, because when you filter the list
@@ -197,7 +197,7 @@ class CoursesFragment : Fragment() {
             R.id.borrarrtodo -> {
                 var m_Text = "";
                 val builder = AlertDialog.Builder(context!!)
-                builder.setTitle("Para confirmar insertar la palabra 'confirmar'")
+                builder.setTitle("Para confirmar inserte la palabra 'confirmar'")
                 val input = EditText(context!!)
                 input.inputType = InputType.TYPE_CLASS_TEXT
                 builder.setView(input)
@@ -221,7 +221,18 @@ class CoursesFragment : Fragment() {
                 return true
             }
             R.id.exportartodo -> {
-                return true
+                val response = "HUUUUUUUUUUUUUUUUUREEEEEEEEEEEENSOOOOOOOOOOOOOOOOOHHHN"
+                context!!.openFileOutput("backup.txt", Context.MODE_PRIVATE).use {
+                    it.write(response.toByteArray())
+                }
+                val file = File(context!!.filesDir, "backup.txt")
+                val uri = FileProvider.getUriForFile(context!!, "com.mydomain.myapp.fileprovider", file)
+                val shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "text/*"
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+                //startActivityForResult(Intent.createChooser(shareIntent., "Backup"), BACKUP_FILE_REQUEST_CODE)
+                startActivity(Intent.createChooser(shareIntent, "share file with"))
+                return true;
             }
             else -> super.onOptionsItemSelected(item)
         }
