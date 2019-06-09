@@ -86,24 +86,29 @@ class CoursesFragment : Fragment() {
 
         Inflater.button_chartsinglecourse.setOnClickListener {
             clicked_course_index = myAdapter.clicked_index
+            val filteredCourses = myAdapter.Courses
+            var coursesForStatistics = ArrayList<CourseDataClass>()
             if (clicked_course_index != -1) {
-                val frag = StatisticsFragment()
-                val bundle = Bundle()
                 val myCourse = listOf(courses.get(clicked_course_index))
-                bundle.putParcelableArrayList("courses", ArrayList<CourseDataClass>(myCourse))
-                frag.setArguments(bundle)
-                val transaction = fragmentManager!!.beginTransaction()
-                transaction.replace(R.id.fragmentContainer, frag)
-                transaction.addToBackStack(null)
-                (activity as MainActivity).setNavBarItem("statistics")
-                transaction.commit()
+                coursesForStatistics = ArrayList<CourseDataClass>(myCourse)
+            } else {
+                coursesForStatistics = filteredCourses
             }
+            val frag = StatisticsFragment()
+            val bundle = Bundle()
+            bundle.putParcelableArrayList("courses", coursesForStatistics)
+            frag.setArguments(bundle)
+            val transaction = fragmentManager!!.beginTransaction()
+            transaction.replace(R.id.fragmentContainer, frag)
+            transaction.addToBackStack(null)
+            (activity as MainActivity).setNavBarItem("statistics")
+            transaction.commit()
         }
 
 
         Inflater.button_sharecourse.setOnClickListener {
-            clicked_course_index = myAdapter.clicked_index
-            if (clicked_course_index != -1) {
+            val clicked_course_unhighlight = myAdapter.clicked_index_for_unhighlight
+            if (clicked_course_index != -1 && clicked_course_unhighlight == 1) {
                 val shareCourse = courses.get(clicked_course_index)
                 val nombre = shareCourse.nombre
                 val empresa = shareCourse.empresa
@@ -124,6 +129,8 @@ class CoursesFragment : Fragment() {
                     type = "text/plain"
                 }
                 startActivity(sendIntent)
+            } else {
+                Toast.makeText(context, "Tienes que marcar un curso!", Toast.LENGTH_SHORT).show()
             }
         }
 

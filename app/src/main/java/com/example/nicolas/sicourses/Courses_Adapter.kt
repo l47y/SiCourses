@@ -16,7 +16,7 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
     RecyclerView.Adapter<Courses_Adapter.CustomViewHolder>(), Filterable {
 
     // Initialization of Courses and a copy for filtering
-    private var Courses: ArrayList<CourseDataClass> = courses
+    var Courses: ArrayList<CourseDataClass> = courses // for reuse in CoursesFragment
     private var CoursesFull: ArrayList<CourseDataClass>
     init {
         Courses = courses
