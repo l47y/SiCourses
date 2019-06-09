@@ -5,6 +5,7 @@ import Helpers.convertStringVecIntoMedia
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_add_course_evals.*
 
 
@@ -63,19 +64,23 @@ class AddCourseEvals : AppCompatActivity() {
 
         btn_listo_add_course_evals.setOnClickListener {
             val evalVec = arrayListOf(diez, nueve, ocho, siete, seis, cinco)
-            val intent = Intent(this, MainActivity::class.java)
-            val evalVecParcable = convertIntVecToSting(evalVec)
-            val media =  convertStringVecIntoMedia(evalVecParcable)
-            intent.putExtra("nombre", nombre)
-            intent.putExtra("lugar", lugar)
-            intent.putExtra("empresa", empresa)
-            intent.putExtra("evals", evalVecParcable)
-            intent.putExtra("media", media)
-            intent.putExtra("de", de)
-            intent.putExtra("hasta", hasta)
+            if (evalVec.sum() == 0) {
+                Toast.makeText(this, "Tienes que añadir al menos una evaluación!", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(this, MainActivity::class.java)
+                val evalVecParcable = convertIntVecToSting(evalVec)
+                val media = convertStringVecIntoMedia(evalVecParcable)
+                intent.putExtra("nombre", nombre)
+                intent.putExtra("lugar", lugar)
+                intent.putExtra("empresa", empresa)
+                intent.putExtra("evals", evalVecParcable)
+                intent.putExtra("media", media)
+                intent.putExtra("de", de)
+                intent.putExtra("hasta", hasta)
 
-            intent.putExtra("I_COME_FROM", "AddCourse")
-            startActivity(intent)
+                intent.putExtra("I_COME_FROM", "AddCourse")
+                startActivity(intent)
+            }
         }
     }
 }
