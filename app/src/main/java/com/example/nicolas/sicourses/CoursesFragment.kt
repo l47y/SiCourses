@@ -107,6 +107,7 @@ class CoursesFragment : Fragment() {
 
 
         Inflater.button_sharecourse.setOnClickListener {
+            clicked_course_index = myAdapter.clicked_index
             val clicked_course_unhighlight = myAdapter.clicked_index_for_unhighlight
             if (clicked_course_index != -1 && clicked_course_unhighlight == 1) {
                 val shareCourse = courses.get(clicked_course_index)
