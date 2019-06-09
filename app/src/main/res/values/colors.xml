@@ -11,7 +11,9 @@
     <color name="gradient5">#d42b94</color>
     <color name="markedListItem">#26008577</color>
 
-    <color name="darkbackground">#121212</color>
+    <color name="darkbackground">#242424</color>
+
+    <color name="background">#242424</color>
 
 
 </resources>

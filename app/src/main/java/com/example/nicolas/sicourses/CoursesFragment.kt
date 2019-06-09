@@ -3,6 +3,7 @@ package com.example.nicolas.sicourses
 
 import Helpers.convertCourseToString
 import Helpers.convertStringToCourse
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -18,9 +19,9 @@ import android.view.*
 import android.widget.EditText
 import android.widget.Toast
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.fragment_courses.*
 import kotlinx.android.synthetic.main.fragment_courses.view.*
 import java.io.File
-import java.io.FileOutputStream
 
 
 class CoursesFragment : Fragment() {
@@ -28,7 +29,8 @@ class CoursesFragment : Fragment() {
     lateinit var myAdapter: Courses_Adapter
     lateinit var searchView: android.support.v7.widget.SearchView
     lateinit var recyclView: RecyclerView
-    lateinit var fos: FileOutputStream
+
+
 
     var courses = ArrayList<CourseDataClass>()
     private var CoursesFull: ArrayList<CourseDataClass>
@@ -37,6 +39,7 @@ class CoursesFragment : Fragment() {
     }
 
     var clicked_course_index = -1
+    var clicked_expandable = 0
 
 
     override fun onCreateView(
@@ -65,10 +68,21 @@ class CoursesFragment : Fragment() {
             startActivity(intent)
         }
 
-        Inflater.changetheme.setOnClickListener {
+
+        Inflater.btn_showbuttons.setOnClickListener {
+            when (clicked_expandable) {
+                0 -> {
+                    setButtonsVisible("visible")
+                    clicked_expandable += 1
+                }
+                1 -> {
+                    setButtonsVisible("gone")
+                    clicked_expandable -= 1
+                }
+            }
+
 
         }
-
 
         Inflater.button_chartsinglecourse.setOnClickListener {
             clicked_course_index = myAdapter.clicked_index
@@ -300,6 +314,25 @@ class CoursesFragment : Fragment() {
         }
     }
 
+    @SuppressLint("RestrictedApi")
+    private fun setButtonsVisible(type: String) {
+        when(type) {
+            "visible" -> {
+//                Handler().postDelayed({button_addcourse.visibility = View.VISIBLE}, 100)
+//                Handler().postDelayed({button_chartsinglecourse.visibility = View.VISIBLE}, 100)
+//                Handler().postDelayed({button_sharecourse.visibility = View.VISIBLE}, 100)
+
+                button_addcourse.visibility = View.VISIBLE
+                button_chartsinglecourse.visibility = View.VISIBLE
+                button_sharecourse.visibility = View.VISIBLE
+            }
+            "gone" -> {
+                button_addcourse.visibility = View.GONE
+                button_chartsinglecourse.visibility = View.GONE
+                button_sharecourse.visibility = View.GONE
+            }
+        }
+    }
 
     private fun saveData() {
         val sharedPrefsObj = this.activity?.getSharedPreferences("data", Context.MODE_PRIVATE)
