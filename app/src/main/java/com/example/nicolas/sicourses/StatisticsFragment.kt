@@ -1,21 +1,22 @@
 package com.example.nicolas.sicourses
 
 
+import Helpers.roundOnDecimal
+import Helpers.roundOnInteger
 import android.graphics.Canvas
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.LinearLayout
-import android.widget.Toast
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.IMarker
-import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.utils.MPPointF
+import kotlinx.android.synthetic.main.fragment_statistics.*
 import kotlinx.android.synthetic.main.fragment_statistics.view.*
-import Helpers.*
 
 
 class StatisticsFragment : Fragment() {
@@ -181,9 +182,11 @@ class StatisticsFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.charnav_back -> {
+                chartinfotext.text = "Haga click en el gráfico para ver detalles"
                 makePieChart()
             }
             R.id.charnav_foward -> {
+                chartinfotext.text = "Haga click en el gráfico para ver detalles"
                 makeBarChart()
             }
         }
@@ -220,12 +223,12 @@ class StatisticsFragment : Fragment() {
                     }
                 }
                 val message = "Tienes " + roundOnInteger(e.value.toDouble()) + " " + label + " en total!"
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                chartinfotext.text = message
             } else if(e is BarEntry) {
                 val courseIndex = e.x.toInt()
                 val Course = courses.get(courseIndex)
                 val message = "Curso: " + Course.nombre +  ", " + Course.de + "-" + Course.hasta
-                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                chartinfotext.text = message
             }
         }
 
