@@ -3,7 +3,7 @@ package com.example.nicolas.sicourses
 
 import Helpers.convertCourseToString
 import Helpers.convertStringToCourse
-import android.app.Activity.RESULT_OK
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -16,6 +16,7 @@ import android.support.v7.widget.helper.ItemTouchHelper
 import android.text.InputType
 import android.view.*
 import android.widget.EditText
+import android.widget.Toast
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_courses.view.*
 import java.io.File
@@ -63,6 +64,11 @@ class CoursesFragment : Fragment() {
             val intent = Intent(context, AddCourseDatos::class.java)
             startActivity(intent)
         }
+
+        Inflater.changetheme.setOnClickListener {
+
+        }
+
 
         Inflater.button_chartsinglecourse.setOnClickListener {
             clicked_course_index = myAdapter.clicked_index
@@ -178,26 +184,38 @@ class CoursesFragment : Fragment() {
         })
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 111 && resultCode == RESULT_OK) {
-            val selectedFile = data?.data
-            val inputStream = context!!.getContentResolver().openInputStream(selectedFile)
-            val size = inputStream.available()
-            val buffer = ByteArray(size)
-            inputStream.read(buffer)
-            inputStream.close()
-            val string_from_file = String(buffer)
-            println(string_from_file)
-            val newCourseStrings = string_from_file.split("/n")
-            var newCourses: MutableList<CourseDataClass> = newCourseStrings.map { convertStringToCourse(it) }.toMutableList()
-            println(newCourses)
-            courses = ArrayList(newCourses)
-            saveData()
-            myAdapter = Courses_Adapter(courses)
-            recyclView.adapter = myAdapter
+    inline fun catchAll(action: () -> Unit) {
+        try {
+            action()
+        } catch (t: Throwable) {
+            Toast.makeText(context, "No es el formato correcto!", Toast.LENGTH_SHORT).show()
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        catchAll {
+            if (requestCode == 111 && resultCode == Activity.RESULT_OK) {
+                val selectedFile = data?.data
+                val inputStream = context!!.getContentResolver().openInputStream(selectedFile)
+                val size = inputStream.available()
+                val buffer = ByteArray(size)
+                inputStream.read(buffer)
+                inputStream.close()
+                val string_from_file = String(buffer)
+                println(string_from_file)
+                val newCourseStrings = string_from_file.split("/n")
+                var newCourses: MutableList<CourseDataClass> =
+                    newCourseStrings.map { convertStringToCourse(it) }.toMutableList()
+                println(newCourses)
+                courses = ArrayList(newCourses)
+                saveData()
+                myAdapter = Courses_Adapter(courses)
+                recyclView.adapter = myAdapter
+            }
+        }
+    }
+
 
     // Sort List
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
