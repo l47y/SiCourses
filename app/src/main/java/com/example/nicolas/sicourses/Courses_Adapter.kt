@@ -1,5 +1,6 @@
 package com.example.nicolas.sicourses
 
+import Helpers.roundOnDecimal
 import android.graphics.Color
 import android.support.constraint.ConstraintLayout
 import android.support.v7.widget.RecyclerView
@@ -9,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-
-import Helpers.*
 
 
 class Courses_Adapter(courses: ArrayList<CourseDataClass>):
@@ -36,6 +35,8 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
         val fechaView = v.findViewById<TextView>(R.id.recyclerlayout_fecha)
         val participantesView = v.findViewById<TextView>(R.id.recyclerlayout_participantes)
         val evalsView = v.findViewById<TextView>(R.id.recyclerlayout_evals)
+       // val chartofsinglecourseView = v.findViewById<FloatingActionButton>(R.id.chartofsinglecourse)
+
     }
 
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): CustomViewHolder {
@@ -55,10 +56,12 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
             p0.layout.setBackgroundColor(Color.parseColor("#33008577"))
             p0.participantesView.visibility = View.VISIBLE
             p0.evalsView.visibility = View.VISIBLE
+            //p0.chartofsinglecourseView.visibility = View.VISIBLE
         } else {
             p0.layout.setBackgroundColor(Color.parseColor("#ffffff"))
             p0.participantesView.visibility = View.GONE
             p0.evalsView.visibility = View.GONE
+          //  p0.chartofsinglecourseView.visibility = View.GONE
         }
 
         val Course = Courses.get(p1)

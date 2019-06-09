@@ -64,6 +64,23 @@ class CoursesFragment : Fragment() {
             startActivity(intent)
         }
 
+        Inflater.button_chartsinglecourse.setOnClickListener {
+            clicked_course_index = myAdapter.clicked_index
+            if (clicked_course_index != -1) {
+                val frag = StatisticsFragment()
+                val bundle = Bundle()
+                val myCourse = listOf(courses.get(clicked_course_index))
+                bundle.putParcelableArrayList("courses", ArrayList<CourseDataClass>(myCourse))
+                frag.setArguments(bundle)
+                val transaction = fragmentManager!!.beginTransaction()
+                transaction.replace(R.id.fragmentContainer, frag)
+                transaction.addToBackStack(null)
+                (activity as MainActivity).setNavBarItem("statistics")
+                transaction.commit()
+            }
+        }
+
+
         Inflater.button_sharecourse.setOnClickListener {
             clicked_course_index = myAdapter.clicked_index
             if (clicked_course_index != -1) {

@@ -123,6 +123,20 @@ class MainActivity : AppCompatActivity() {
         sharedPredsObj.edit().clear().apply()
     }
 
+    fun setNavBarItem(item: String) {
+        when (item) {
+            "statistics" -> {
+                bottom_nav.setSelectedItemId(R.id.nav_statistics)
+            }
+            "courses" -> {
+                bottom_nav.setSelectedItemId(R.id.nav_courses)
+            }
+            "map" -> {
+                bottom_nav.setSelectedItemId(R.id.nav_map)
+            }
+        }
+    }
+
 
 }
 
