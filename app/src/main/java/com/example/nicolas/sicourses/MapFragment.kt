@@ -28,6 +28,27 @@ class MapFragment : Fragment(), OnMapReadyCallback {
 
     )
 
+    val locFactor = 3
+
+    var latAdd = hashMapOf<Int, Double>(
+        Pair(2, -0.01),
+        Pair(3, + 0.00),
+        Pair(4, + 0.01),
+        Pair(5, + 0.00),
+        Pair(6, - 0.02),
+        Pair(7, + 0.00),
+        Pair(8, + 0.02)
+    )
+
+    var longAdd = hashMapOf<Int, Double>(
+        Pair(2, -0.00),
+        Pair(3, + 0.01),
+        Pair(4, + 0.00),
+        Pair(5, - 0.01),
+        Pair(6, - 0.00),
+        Pair(7, + 0.02),
+        Pair(8, + 0.00)
+    )
 
     lateinit var mybundle: Bundle
     override fun onMapReady(p0: GoogleMap?) {
@@ -65,31 +86,36 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val items = ArrayList<OverlayItem>()
         items.add(OverlayItem("Title", "Description", startPoint)) // Lat/Lon decimal degrees
 
-//        for (el in coords) {
-//            val startMarker = Marker(map)
-//            val point = GeoPoint(el.value[0], el.value[1])
-//            startMarker.setPosition(point)
-//            startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-//            map.overlays.add(startMarker)
-//        }
-
+        var myCities = mutableListOf<String>()
         for (el in courses) {
             val loc = coords[el.lugar]
             if (loc != null) {
+                val howMany = myCities.filter {it == el.lugar}.size + 1
+
+                var long = loc[0]
+                var lat = loc[1]
+                if (howMany > 1) {
+                    val longVal: Double? = longAdd[howMany]
+                    val latVal: Double? = latAdd[howMany]
+                    if (longVal != null && latVal != null) {
+                        long += longVal * locFactor
+                        lat += latVal * locFactor
+                    }
+                }
+                myCities.add(el.lugar)
+
                 val startMarker = Marker(map)
-                val point = GeoPoint(loc[0], loc[1])
+                val point = GeoPoint(long, lat)
                 startMarker.setPosition(point)
                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-                //startMarker.setTextIcon(el.nombre)
+
+                startMarker.title = el.nombre + "\n" + el.de + " - " + el.hasta  + "\n" + el.empresa + "\n" +
+                        "Media: " + el.media
+                //startMarker.setTextIcon(el.nombre +)
                 map.overlays.add(startMarker)
             }
         }
 
-
-//        val startMarker = Marker(map)
-//        startMarker.setPosition(startPoint)
-//        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-//        map.overlays.add(startMarker)
 
         return Inflator
 
