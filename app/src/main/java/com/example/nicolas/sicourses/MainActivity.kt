@@ -60,6 +60,10 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.nav_map -> {
                 val frag = MapFragment()
+                val bundle = Bundle()
+                val coursesForSending = ArrayList<CourseDataClass>(courses)
+                bundle.putParcelableArrayList("courses", coursesForSending)
+                frag.setArguments(bundle)
                 replaceFragment(frag)
                 return@OnNavigationItemSelectedListener true
             }
