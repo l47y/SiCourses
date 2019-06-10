@@ -25,6 +25,7 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
 
     var clicked_index = -1
     var clicked_index_for_unhighlight = 0 //track if clicked twice to unhighlight item
+    var clicked_index_before = -1
 
     // Viewholder class
     inner class CustomViewHolder(v: View): RecyclerView.ViewHolder(v) {
@@ -68,10 +69,6 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
                     clicked_index_for_unhighlight -= 1
                 }
             }
-            //p0.layout.setBackgroundColor(Color.parseColor("#33008577"))F
-            //p0.participantesView.visibility = View.VISIBLE
-            //p0.evalsView.visibility = View.VISIBLE
-            //p0.chartofsinglecourseView.visibility = View.VISIBLE
         } else {
             p0.layout.setBackgroundColor(Color.parseColor("#ffffff"))
             p0.participantesView.visibility = View.GONE
