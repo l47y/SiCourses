@@ -40,6 +40,7 @@ class CoursesFragment : Fragment() {
 
     var clicked_course_index = -1
     var clicked_expandable = 0
+    var clicked_course_unhighlight = 0
 
 
     override fun onCreateView(
@@ -85,10 +86,11 @@ class CoursesFragment : Fragment() {
         }
 
         Inflater.button_chartsinglecourse.setOnClickListener {
+            clicked_course_unhighlight = myAdapter.clicked_index_for_unhighlight
             clicked_course_index = myAdapter.clicked_index
             val filteredCourses = myAdapter.Courses
             var coursesForStatistics = ArrayList<CourseDataClass>()
-            if (clicked_course_index != -1) {
+            if (clicked_course_index != -1 && clicked_course_unhighlight == 1) {
                 val myCourse = listOf(courses.get(clicked_course_index))
                 coursesForStatistics = ArrayList<CourseDataClass>(myCourse)
             } else {
@@ -108,7 +110,7 @@ class CoursesFragment : Fragment() {
 
         Inflater.button_sharecourse.setOnClickListener {
             clicked_course_index = myAdapter.clicked_index
-            val clicked_course_unhighlight = myAdapter.clicked_index_for_unhighlight
+            clicked_course_unhighlight = myAdapter.clicked_index_for_unhighlight
             if (clicked_course_index != -1 && clicked_course_unhighlight == 1) {
                 val shareCourse = courses.get(clicked_course_index)
                 val nombre = shareCourse.nombre
@@ -326,18 +328,16 @@ class CoursesFragment : Fragment() {
     private fun setButtonsVisible(type: String) {
         when(type) {
             "visible" -> {
-//                Handler().postDelayed({button_addcourse.visibility = View.VISIBLE}, 100)
-//                Handler().postDelayed({button_chartsinglecourse.visibility = View.VISIBLE}, 100)
-//                Handler().postDelayed({button_sharecourse.visibility = View.VISIBLE}, 100)
-
                 button_addcourse.visibility = View.VISIBLE
                 button_chartsinglecourse.visibility = View.VISIBLE
                 button_sharecourse.visibility = View.VISIBLE
+                btn_showbuttons.setBackgroundColor(0x32d81b60)
             }
             "gone" -> {
                 button_addcourse.visibility = View.GONE
                 button_chartsinglecourse.visibility = View.GONE
                 button_sharecourse.visibility = View.GONE
+                btn_showbuttons.setBackgroundColor(0xd81b60)
             }
         }
     }
