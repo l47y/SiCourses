@@ -2,13 +2,13 @@ package com.example.nicolas.sicourses
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
-import java.text.SimpleDateFormat
 import kotlinx.android.synthetic.main.activity_add_course_datos.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -17,16 +17,16 @@ class AddCourseDatos : AppCompatActivity() {
     // List of biggest cities. Source:
     // https://es.wikipedia.org/wiki/Anexo:Municipios_de_Espa%C3%B1a_por_poblaci%C3%B3n
     private val spanishCities: Array<String> = arrayOf(
-        "Madrid", "Barcelona", "Valencia", "zaragoza", "Sevilla", "Málaga", "Murcia", "Palma",
+        "Madrid", "Barcelona", "Valencia", "Zaragoza", "Sevilla", "Málaga", "Murcia", "Palma",
         "Las Palmas de Gran Canaria", "Bilbao", "Alicante", "Córdoba", "Valladolid", "Vigo",
-        "Gijón", "Hospitalet de Llobregat", "Vitoria", "La Coruña", "Granada", "Elche", "Oviedo",
-        "Tarrasa", "Badalona", "Cartagena", "Jerez de la Frontera", "Sabadell", "Móstoles",
+        "Gijón", "Hospitalet de Llobregat", "Vitoria", "A Coruña", "Granada", "Elche", "Oviedo",
+        "Terrasa", "Badalona", "Cartagena", "Jerez de la Frontera", "Sabadell", "Móstoles",
         "Santa Cruz de Tenerife", "Pamplona", "Almería", "Alcalá de Henares", "Fuenlabrada",
-        "Leganés", "San Sebastián", "Getafe", "Burgos", "Albacete", "Santander", "Castellón de Palma",
+        "Leganés", "San Sebastián", "Getafe", "Burgos", "Albacete", "Santander", "Castellón de la Plana",
         "San Cristóbal de la Laguna", "Alcorcón", "Logroñö", "Badajoz", "Huelva", "Salamanca",
         "Marbella", "Lérida", "Dos Hermanas", "Tarragona", "Torrejón de Ardoz", "Mataró",
         "Parla", "León", "Algeciras", "Cádiz", "Santa Coloma de Gramanet", "Alcobendas", "Jaén",
-        "Orense", "Reus", "Telde", "Baracaldo")
+        "Orense", "Reus", "Telde", "Baracaldo", "Teruel", "Soria", "Aranda de Duero")
 
     private val courseList: Array<String> = arrayOf(
         "S7 300/400 nivel 1",

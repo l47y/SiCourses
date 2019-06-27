@@ -51,6 +51,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-maps:16.0.0'
     implementation 'com.github.wangjiegulu:rfab:2.0.0'
     implementation 'org.osmdroid:osmdroid-android:6.1.0'
+    implementation 'com.github.MKergall:osmbonuspack:6.6.0'
 
 }
 
