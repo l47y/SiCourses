@@ -116,10 +116,11 @@ class Courses_Adapter(courses: ArrayList<CourseDataClass>):
     // Filter class
     inner class RecyclerFilter: Filter() {
 
-        override fun performFiltering(constraint: CharSequence?): FilterResults {
+        override fun performFiltering(constraint_original: CharSequence?): FilterResults {
 
             val results = FilterResults()
             val filteredList: ArrayList<CourseDataClass> = ArrayList()
+            val constraint = constraint_original.toString().toLowerCase()
 
             if (constraint != null && constraint.length > 0) {
                 for (Course in CoursesFull) {

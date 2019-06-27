@@ -286,7 +286,7 @@ class CoursesFragment : Fragment() {
                     "Confirmar"
                 ) {
                     dialog, which -> m_Text = input.text.toString()
-                    if (m_Text == "confirmar") {
+                    if (m_Text == "confirmar" || m_Text == "confirmar ") {
                         courses.clear()
                         saveData()
                     }
