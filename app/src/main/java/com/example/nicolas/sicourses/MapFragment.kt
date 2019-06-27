@@ -1,5 +1,6 @@
 package com.example.nicolas.sicourses
 
+import Helpers.roundOnDecimal
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.support.v4.app.Fragment
@@ -151,8 +152,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 startMarker.setPosition(point)
                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
 
-                startMarker.title = el.nombre + "\n" + el.de + " - " + el.hasta  + "\n" + el.empresa + "\n" +
-                        "Media: " + el.media
+                startMarker.title = el.nombre + "\n" + el.de + " - " + el.hasta  + "\n" + el.empresa + ", " +
+                        el.lugar + "\n" + "Media: " + roundOnDecimal(el.media)
                 //startMarker.setTextIcon(el.nombre +)
                 map.overlays.add(startMarker)
             }
