@@ -21,6 +21,8 @@ import org.osmdroid.views.overlay.OverlayItem
 
 
 
+
+
 class MapFragment : Fragment(), OnMapReadyCallback {
 
     var coords  = hashMapOf(
@@ -129,66 +131,95 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         val items = ArrayList<OverlayItem>()
         items.add(OverlayItem("Title", "Description", startPoint)) // Lat/Lon decimal degrees
 
-        var myCities = mutableListOf<String>()
-        for (el in courses) {
-            val loc = coords[el.lugar]
+//        var myCities = mutableListOf<String>()
+//        for (el in courses) {
+//            val loc = coords[el.lugar]
+//            if (loc != null) {
+//                val howMany = myCities.filter {it == el.lugar}.size + 1
+//
+//                var long = loc[0]
+//                var lat = loc[1]
+//                if (howMany > 1) {
+//                    val longVal: Double? = longAdd[howMany]
+//                    val latVal: Double? = latAdd[howMany]
+//                    if (longVal != null && latVal != null) {
+//                        long += longVal * locFactor
+//                        lat += latVal * locFactor
+//                    }
+//                }
+//                myCities.add(el.lugar)
+//
+//                val startMarker = Marker(map)
+//                val point = GeoPoint(long, lat)
+//                startMarker.setPosition(point)
+//                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
+//
+//                startMarker.title = el.nombre + "\n" + el.de + " - " + el.hasta  + "\n" + el.empresa + ", " +
+//                        el.lugar + "\n" + "Media: " + roundOnDecimal(el.media)
+//
+//                //var icon = resources.getDrawable(R.drawable.ic_place_black_24dp)
+//                //icon.setBounds(0, 0, 50, 50)
+//                //var myIcon = resources.getDrawable(R.drawable.ic_place_black_24dp)
+//                //val myHeight = 24 + 10 * howMany
+//                //val myWidth = 24 + 10 * howMany
+//                //var drawable = ScaleDrawable(myIcon, 0, myWidth.toFloat(), myHeight.toFloat()).drawable
+//
+//               // mdrayIcon.setBounds(0, 0, myWidth, myHeight)
+//                when  {
+//                    howMany == 1 -> startMarker.icon = resources.getDrawable(R.drawable.ic_place_black_24dp)
+//                    howMany == 2 -> startMarker.icon = resources.getDrawable(R.drawable.ic_place_black_30dp)
+//                    howMany == 3 -> startMarker.icon = resources.getDrawable(R.drawable.ic_place_black_36dp)
+//                }
+//                map.overlays.add(startMarker)
+//            }
+//        }
+
+        val lugares = courses.map {it.lugar}.distinct()
+
+        for (lugar in lugares) {
+            val loc = coords[lugar]
             if (loc != null) {
-                val howMany = myCities.filter {it == el.lugar}.size + 1
+                val sub = courses.filter {it.lugar == lugar}
+                val howMany  = sub.size
 
                 var long = loc[0]
                 var lat = loc[1]
-                if (howMany > 1) {
-                    val longVal: Double? = longAdd[howMany]
-                    val latVal: Double? = latAdd[howMany]
-                    if (longVal != null && latVal != null) {
-                        long += longVal * locFactor
-                        lat += latVal * locFactor
-                    }
-                }
-                myCities.add(el.lugar)
 
                 val startMarker = Marker(map)
                 val point = GeoPoint(long, lat)
                 startMarker.setPosition(point)
                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
 
-                startMarker.title = el.nombre + "\n" + el.de + " - " + el.hasta  + "\n" + el.empresa + ", " +
-                        el.lugar + "\n" + "Media: " + roundOnDecimal(el.media)
-                //startMarker.setTextIcon(el.nombre +)
+                val numPersonas = sub.map {it.evals.split(",").size}.sum()
+                var evalPersonas = 0.toDouble()
+                var medias = ""
+                for (el in sub) {
+                    evalPersonas += el.evals.split(",").map{it.toInt()}.sum()
+                    medias += roundOnDecimal(el.media).toString() + "; "
+                }
+                val meanPersonas = evalPersonas / numPersonas
+
+                var titleString = "~" + lugar + "~" + "\n" +
+                        "Número cursos: " + sub.size + "\n" +
+                        "Número participantes: " + numPersonas + "\n" +
+                        "Medias: " + medias.removeSuffix("; ") + "\n" +
+                        "Media total (personas): " + roundOnDecimal(meanPersonas) + "\n" +
+                        "Media total (cursos): " + roundOnDecimal(sub.map{it.media.toDouble()}.average())
+
+                startMarker.title = titleString
+
+                when  {
+                    howMany == 1 -> startMarker.icon = resources.getDrawable(R.drawable.ic_place_black_1)
+                    howMany == 2 -> startMarker.icon = resources.getDrawable(R.drawable.ic_place_black_2)
+                    howMany == 3 -> startMarker.icon = resources.getDrawable(R.drawable.ic_place_black_3)
+                    howMany == 4 -> startMarker.icon = resources.getDrawable(R.drawable.ic_place_black_4)
+                    howMany > 4 -> startMarker.icon = resources.getDrawable(R.drawable.ic_place_black_5)
+                }
+
                 map.overlays.add(startMarker)
             }
+            map.invalidate()
         }
-
-//        val lugares = courses.map {it.lugar}.distinct()
-//
-//        for (el in lugares) {
-//            val loc = coords[el]
-//            if (loc != null) {
-//                val sub = courses.filter {it.lugar == el}
-//
-//                var long = loc[0]
-//                var lat = loc[1]
-//
-//                val poiMarkers = RadiusMarkerClusterer(context)
-//                for (c in sub) {
-//                    val startMarker = Marker(map)
-//                    val point = GeoPoint(long, lat)
-//                    startMarker.setPosition(point)
-//                    startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-//
-//                    startMarker.title = c.nombre + "\n" + c.de + " - " + c.hasta  + "\n" + c.empresa + "\n" +
-//                            "Media: " + c.media
-//                    poiMarkers.add(startMarker)
-//
-//                }
-//                map.overlays.add(poiMarkers)
-//                //map.overlays.add(poiMarkers)
-//
-//            }
-//            map.invalidate()
-//        }
-
-
 
         return Inflator
 
