@@ -26,7 +26,8 @@ class AddCourseDatos : AppCompatActivity() {
         "San Cristóbal de la Laguna", "Alcorcón", "Logroñö", "Badajoz", "Huelva", "Salamanca",
         "Marbella", "Lérida", "Dos Hermanas", "Tarragona", "Torrejón de Ardoz", "Mataró",
         "Parla", "León", "Algeciras", "Cádiz", "Santa Coloma de Gramanet", "Alcobendas", "Jaén",
-        "Orense", "Reus", "Telde", "Baracaldo", "Teruel", "Soria", "Aranda de Duero")
+        "Orense", "Reus", "Telde", "Baracaldo", "Teruel", "Soria", "Aranda de Duero", "Tres Cantos",
+        "Almussafes")
 
     private val courseList: Array<String> = arrayOf(
         "S7 300/400 nivel 1",

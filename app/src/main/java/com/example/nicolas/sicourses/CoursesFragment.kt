@@ -30,7 +30,7 @@ class CoursesFragment : Fragment() {
     lateinit var searchView: android.support.v7.widget.SearchView
     lateinit var recyclView: RecyclerView
 
-
+    val splitString = "/newline"
 
     var courses = ArrayList<CourseDataClass>()
     private var CoursesFull: ArrayList<CourseDataClass>
@@ -228,7 +228,7 @@ class CoursesFragment : Fragment() {
                 inputStream.close()
                 val string_from_file = String(buffer)
                 println(string_from_file)
-                val newCourseStrings = string_from_file.split("/n")
+                val newCourseStrings = string_from_file.split(splitString)
                 var newCourses: MutableList<CourseDataClass> =
                     newCourseStrings.map { convertStringToCourse(it) }.toMutableList()
                 println(newCourses)
@@ -307,7 +307,7 @@ class CoursesFragment : Fragment() {
             }
             R.id.exportartodo -> {
                 var courseStrings: MutableList<String> = courses.map { convertCourseToString(it) }.toMutableList()
-                val response = courseStrings.joinToString("/n")
+                val response = courseStrings.joinToString(splitString)
                 context!!.openFileOutput("backup.txt", Context.MODE_PRIVATE).use {
                     it.write(response.toByteArray())
                 }

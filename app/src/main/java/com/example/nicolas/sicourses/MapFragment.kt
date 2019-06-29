@@ -74,7 +74,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         Pair("León", listOf(42.60003, -5.57032)),
         Pair("Teruel", listOf(40.3456, -1.10646)),
         Pair("Soria", listOf(41.76401, -2.46883)),
-        Pair("Aranda de Duero", listOf(41.67041, -3.6892))
+        Pair("Aranda de Duero", listOf(41.67041, -3.6892)),
+        Pair("Tres Cantos", listOf(40.600727, -3.707974)),
+        Pair("Almussafes", listOf(39.2927653, -0.413208))
     )
 
     val locFactor = 3
