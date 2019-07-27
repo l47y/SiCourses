@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SiCourses</string>
+    <string name="app_name">coursanizer</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="maxForEvalSliders">30</string>
 </resources>

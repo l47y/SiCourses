@@ -1,4 +1,4 @@
-package com.example.nicolas.sicourses
+package com.example.nicolas.coursanizer47
 
 import android.content.Context
 import android.os.Bundle

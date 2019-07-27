@@ -1,4 +1,4 @@
-package com.example.nicolas.sicourses
+package com.example.nicolas.coursanizer47
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

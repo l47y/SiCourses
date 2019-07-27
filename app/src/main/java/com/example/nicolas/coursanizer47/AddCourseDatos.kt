@@ -1,4 +1,4 @@
-package com.example.nicolas.sicourses
+package com.example.nicolas.coursanizer47
 
 import android.app.DatePickerDialog
 import android.content.Intent

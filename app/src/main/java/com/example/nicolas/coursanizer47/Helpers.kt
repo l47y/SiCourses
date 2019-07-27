@@ -1,6 +1,6 @@
 package Helpers
 
-import com.example.nicolas.sicourses.CourseDataClass
+import com.example.nicolas.coursanizer47.CourseDataClass
 import java.math.RoundingMode
 import java.text.DecimalFormat
 

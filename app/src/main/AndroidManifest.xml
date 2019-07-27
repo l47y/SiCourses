@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.nicolas.sicourses">
+          package="com.example.nicolas.coursanizer47">
     
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
@@ -18,7 +18,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity
-                android:name=".MainActivity"
+                android:name="com.example.nicolas.coursanizer47.MainActivity"
                 android:configChanges="orientation|keyboardHidden"
                 android:screenOrientation="portrait">
             <intent-filter>
@@ -27,9 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".AddCourseDatos">
+        <activity android:name="com.example.nicolas.coursanizer47.AddCourseDatos">
         </activity>
-        <activity android:name=".AddCourseEvals">
+        <activity android:name="com.example.nicolas.coursanizer47.AddCourseEvals">
 
         </activity>
         
